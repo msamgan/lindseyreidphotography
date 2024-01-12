@@ -1,14 +1,14 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
-import { Head } from '@inertiajs/react';
-import SubMenu from "@/Pages/Profile/Partials/SubMenu.jsx";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
+import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm"
+import { Head } from "@inertiajs/react"
+import SubMenu from "@/Pages/Profile/Partials/SubMenu.jsx"
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>}
-            subMenu={<SubMenu/>}
+            subMenu={<SubMenu />}
         >
             <Head title="Profile" />
 
@@ -24,5 +24,5 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

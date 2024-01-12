@@ -1,20 +1,20 @@
-import {useState} from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import {Link} from '@inertiajs/react';
+import { useState } from "react"
+import ApplicationLogo from "@/Components/ApplicationLogo"
+import Dropdown from "@/Components/Dropdown"
+import NavLink from "@/Components/NavLink"
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink"
+import { Link } from "@inertiajs/react"
 
 const mainMenu = [
     {
-        name: 'Dashboard',
-        href: route('dashboard'),
-        current: route().current('dashboard'),
-    },
-];
+        name: "Dashboard",
+        href: route("dashboard"),
+        current: route().current("dashboard")
+    }
+]
 
-export default function Authenticated({user, header, subMenu, children}) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+export default function Authenticated({ user, header, subMenu, children }) {
+    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -24,7 +24,7 @@ export default function Authenticated({user, header, subMenu, children}) {
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="invert block h-9 w-auto fill-current text-gray-800"/>
+                                    <ApplicationLogo className="invert block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div>
 
@@ -65,9 +65,9 @@ export default function Authenticated({user, header, subMenu, children}) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        <Dropdown.Link href={route("profile.edit")}>Profile</Dropdown.Link>
                                         <hr />
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                        <Dropdown.Link href={route("logout")} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -81,17 +81,19 @@ export default function Authenticated({user, header, subMenu, children}) {
             {header && (
                 <header className="p-4 bg-white text-gray-800">
                     <div className="container flex justify-between h-16 mx-auto">
-                        <a rel="noopener noreferrer" aria-label="Back to homepage" className="flex items-center p-2">
+                        <a
+                            rel="noopener noreferrer"
+                            aria-label="Back to homepage"
+                            className="flex items-center p-2"
+                        >
                             {header}
                         </a>
-                        <ul className="items-stretch hidden space-x-3 md:flex">
-                            {subMenu}
-                        </ul>
+                        <ul className="items-stretch hidden space-x-3 md:flex">{subMenu}</ul>
                     </div>
                 </header>
             )}
 
             <main>{children}</main>
         </div>
-    );
+    )
 }
