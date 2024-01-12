@@ -4,7 +4,7 @@ export default function Footer() {
             <div className="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
                 <div className="grid grid-cols-12">
                     <div className="pb-6 col-span-full md:pb-0 md:col-span-6">
-                        <p className="flex justify-center space-x-3 md:justify-start px-12 text-lg">
+                        <p className="flex justify-center space-x-3 md:justify-start px-12 text-xl">
                             We are a wedding, engagement, and portraiture photography company based in Kutztown,
                             PA, servicing the Berks, Bucks, Philadelphia and Lehigh Valley areas, with
                             destination packages available upon request. We strive to capture the moments you
@@ -13,18 +13,18 @@ export default function Footer() {
                     </div>
 
                     <div className="col-span-12 text-center md:text-left md:col-span-3 mb-2">
-                        <p className="pb-1 text-lg font-medium sunydale">Contact Information</p>
+                        <p className="pb-1 text-2xl font-medium sunydale">Contact Information</p>
                         <ul>
                             <li>
-                                <a rel="noopener noreferrer" href="#" className="hover:text-orange-600">
+                                <a rel="noopener noreferrer" href="#" className="hover:text-orange-600 text-xl">
                                     photographybylbr@gmail.com
                                 </a>
                             </li>
-                            <li>Kutztown, PA United States</li>
+                            <li className={'text-xl'}>Kutztown, PA United States</li>
                         </ul>
                     </div>
                     <div className="col-span-12 text-center md:text-left md:col-span-3">
-                        <p className="pb-1 text-lg font-medium sunydale">Client Access</p>
+                        <p className="pb-1 text-2xl font-medium sunydale">Client Access</p>
                         <div className={"flex flex-row"}>
                             <input
                                 className={
