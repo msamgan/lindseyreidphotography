@@ -1,19 +1,20 @@
 import { Link } from "@inertiajs/react"
 
 export default function Header() {
+
     const menu = () => {
         return [
             {
                 label: "Gallery",
-                link: "gallery"
+                name: "gallery"
             },
             {
                 label: "Contact",
-                link: "contact"
+                name: "contact"
             },
             {
                 label: "Pricing",
-                link: "pricing"
+                name: "pricing"
             }
         ]
     }
@@ -27,8 +28,10 @@ export default function Header() {
                             <li className="flex cursor-pointer hover:text-grey-900" key={index}>
                                 <Link
                                     rel="noopener noreferrer"
-                                    href={menuItem.link}
-                                    className="flex items-center px-4 -mb-1 border-b-2 border-transparent sunydale"
+                                    href={menuItem.name}
+                                    className={
+                                        "flex items-center px-4 -mb-1 border-b-2 border-transparent sunydale"
+                                    }
                                 >
                                     {menuItem.label}
                                 </Link>

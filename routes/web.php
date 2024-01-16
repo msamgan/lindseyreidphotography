@@ -21,7 +21,15 @@ Route::get('/', function () {
 
 Route::get('/contact', function () {
     return Inertia::render('Contact');
-});
+})->name('contact');
+
+Route::get('/gallery', function () {
+    return Inertia::render('Contact');
+})->name('gallery');
+
+Route::get('/pricing', function () {
+    return Inertia::render('Pricing');
+})->name('pricing');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
