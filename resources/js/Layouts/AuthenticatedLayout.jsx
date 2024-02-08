@@ -10,6 +10,11 @@ const mainMenu = [
         name: "Dashboard",
         href: route("dashboard"),
         current: route().current("dashboard")
+    },
+    {
+        name: "Pricing",
+        href: route("admin.pricing"),
+        current: route().current("admin.pricing")
     }
 ]
 

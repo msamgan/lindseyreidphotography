@@ -30,7 +30,6 @@
     font-style: normal;
 }
 
-
 .dancing-script-heading {
     font-family: "Romantically", cursive;
     font-optical-sizing: auto;
@@ -45,7 +44,15 @@
 }
 
 p,
-li, h1, h2, h3, h4, h5, h6, label, button {
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+button {
     font-family: "Inconsolata", monospace;
     font-optical-sizing: auto;
     font-weight: < weight >;

@@ -1,7 +1,6 @@
 import { Link } from "@inertiajs/react"
 
 export default function Header() {
-
     const menu = () => {
         return [
             {

@@ -20,7 +20,7 @@ export default function Footer() {
                                     photographybylbr@gmail.com
                                 </a>
                             </li>
-                            <li className={'text-xl'}>Kutztown, PA United States</li>
+                            <li className={"text-xl"}>Kutztown, PA United States</li>
                         </ul>
                     </div>
                     <div className="col-span-12 text-center md:text-left md:col-span-3">
