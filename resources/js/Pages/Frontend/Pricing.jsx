@@ -1,5 +1,6 @@
 import FrontLayout from "@/Layouts/FrontLayout.jsx"
 import { useEffect } from "react"
+import HyphenSvg from "@/Components/svgs/hyphenSvg.jsx"
 
 export default function Pricing({ primaryPackages, secondaryPackages }) {
     return (
@@ -22,20 +23,7 @@ export default function Pricing({ primaryPackages, secondaryPackages }) {
                                             {pack.package_services.map((service, serviceIndex) => {
                                                 return (
                                                     <li className="flex mb-2 space-x-2" key={serviceIndex}>
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            strokeWidth={1.5}
-                                                            stroke="currentColor"
-                                                            className="w-6 h-6"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                d="M5 12h14"
-                                                            />
-                                                        </svg>
+                                                        <HyphenSvg className="w-6 h-6 mt-1" />
                                                         <span className={"text-lg"}>{service.details}</span>
                                                     </li>
                                                 )

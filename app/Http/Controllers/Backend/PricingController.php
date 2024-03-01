@@ -19,16 +19,31 @@ class PricingController extends Controller
         return inertia('Backend/Pricing')->with('packages', $packages);
     }
 
-    public function update(Request $request): JsonResponse
+    public function updatePricing(Request $request): JsonResponse
     {
-        $packageId = $request->get('package_id');
-        $price = $request->get('price');
+        $packageId = $request->get('id');
+        $price = $request->get('data');
 
         try {
             Package::query()->where('id', $packageId)->update(['price' => $price]);
+
             return response()->json(['message' => 'Package price updated successfully'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'An error occurred while updating package price'], 500);
+        }
+    }
+
+    public function updateName(Request $request): JsonResponse
+    {
+        $packageId = $request->get('id');
+        $name = $request->get('data');
+
+        try {
+            Package::query()->where('id', $packageId)->update(['name' => $name]);
+
+            return response()->json(['message' => 'Package name updated successfully'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'An error occurred while updating package name'], 500);
         }
     }
 }
