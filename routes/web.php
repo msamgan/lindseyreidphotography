@@ -10,5 +10,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/custom/pricing.php';
+require __DIR__.'/custom/gallery.php';
 require __DIR__.'/custom/profile.php';
 require __DIR__.'/auth.php';

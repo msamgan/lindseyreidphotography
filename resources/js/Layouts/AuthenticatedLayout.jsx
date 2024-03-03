@@ -15,10 +15,15 @@ const mainMenu = [
         name: "Pricing",
         href: route("admin.pricing"),
         current: route().current("admin.pricing")
+    },
+    {
+        name: "Gallery",
+        href: route("admin.gallery"),
+        current: route().current("admin.gallery")
     }
 ]
 
-export default function Authenticated({ user, header, subMenu, children }) {
+export default function AuthenticatedLayout({ user, header, subMenu, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
 
     return (

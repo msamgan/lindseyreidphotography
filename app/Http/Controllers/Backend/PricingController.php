@@ -14,9 +14,14 @@ class PricingController extends Controller
 {
     public function index(): Response|ResponseFactory
     {
+        return inertia('Backend/Pricing');
+    }
+
+    public function packages(): JsonResponse
+    {
         $packages = Package::query()->with('package_services')->get();
 
-        return inertia('Backend/Pricing')->with('packages', $packages);
+        return response()->json($packages);
     }
 
     public function updatePricing(Request $request): JsonResponse

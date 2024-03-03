@@ -1,8 +1,17 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import { Head } from "@inertiajs/react"
 import PricingCard from "@/Pages/Backend/Components/PricingCard.jsx"
+import { useEffect, useState } from "react"
 
-export default function Pricing({ auth, packages }) {
+export default function Pricing({ auth }) {
+    const [packages, setPackages] = useState([])
+
+    useEffect(() => {
+        axios(route("admin.pricing.packages")).then((response) => {
+            setPackages(response.data)
+        })
+    }, [])
+
     return (
         <AuthenticatedLayout
             user={auth.user}
