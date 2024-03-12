@@ -21,6 +21,18 @@ class GalleryController extends Controller
         return inertia('Backend/Gallery/Gallery');
     }
 
+    public function viewGallery(Request $request): Response|ResponseFactory
+    {
+        $galleryUuid = $request->get('gallery');
+        $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
+
+        if (!$gallery) {
+            abort(404, 'Gallery not found');
+        }
+
+        return inertia('Backend/Gallery/ViewGallery')->with('gallery', $gallery);
+    }
+
     public function allGalleries(): Collection
     {
         return Gallery::query()->orderByDesc('created_at')->with('images')->get();
@@ -74,5 +86,53 @@ class GalleryController extends Controller
         ]);
 
         return response()->json(['message' => 'Images added to gallery']);
+    }
+
+    public function galleryImages(Request $request): JsonResponse
+    {
+        $galleryUuid = $request->get('gallery');
+        $gallery = Gallery::query()->where('uuid', $galleryUuid)->with('images')->firstOrFail();
+        $galleryImages = $gallery->images;
+
+        return response()->json([
+            'gallery' => $gallery,
+            'images' => $galleryImages,
+        ]);
+    }
+
+    public function deleteGallery(Request $request): JsonResponse
+    {
+        $galleryUuid = $request->get('gallery');
+        $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
+
+        GalleryImage::query()->where('gallery_id', $gallery->id)->get()->each(function ($image) {
+            $imagePath = storage_path('app/public/' . $image->link);
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            $image->delete();
+        });
+        
+        $gallery->delete();
+
+        return response()->json(['message' => 'Gallery deleted']);
+    }
+
+    public function deleteGalleryImage(Request $request): JsonResponse
+    {
+        $imageUuid = $request->get('image');
+        $image = GalleryImage::query()->where('uuid', $imageUuid)->firstOrFail();
+
+        $imagePath = storage_path('app/public/' . $image->link);
+
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        $image->delete();
+
+        return response()->json(['message' => 'Image deleted']);
     }
 }

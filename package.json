@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "filepond": "^4.30.6",
-    "react-filepond": "^7.1.2"
+    "react-filepond": "^7.1.2",
+    "sweetalert2": "^11.10.6"
   }
 }
