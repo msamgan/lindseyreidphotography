@@ -91,6 +91,7 @@ class GalleryController extends Controller
     public function galleryImages(Request $request): JsonResponse
     {
         $galleryUuid = $request->get('gallery');
+        $page = $request->get('page') ?? 1;
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->with('images')->firstOrFail();
         $galleryImages = $gallery->images;
 
@@ -114,7 +115,7 @@ class GalleryController extends Controller
 
             $image->delete();
         });
-        
+
         $gallery->delete();
 
         return response()->json(['message' => 'Gallery deleted']);
