@@ -17,5 +17,3 @@ Route::middleware(['auth', 'verified'])->prefix('backend/gallery')->group(functi
     Route::get('images/', [GalleryController::class, 'galleryImages'])->name('admin.gallery.images');
     Route::delete('image/delete/', [GalleryController::class, 'deleteGalleryImage'])->name('admin.gallery.image.delete');
 });
-
-

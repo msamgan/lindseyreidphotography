@@ -4,17 +4,17 @@ import { FilePond } from "react-filepond"
 import { useState } from "react"
 import "filepond/dist/filepond.min.css"
 
-
 export default function AddImages({ auth, gallery }) {
-
     const [files, setFiles] = useState([])
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                Gallery Images | {gallery.name}
-            </h2>}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Gallery Images | {gallery.name}
+                </h2>
+            }
         >
             <Head title="Gallery Images" />
 
@@ -28,12 +28,17 @@ export default function AddImages({ auth, gallery }) {
                         process: {
                             headers: {},
                             onload: (response) => {
-                                axios.post(route("admin.gallery.image.store", {
-                                    gallery_uuid: gallery.uuid
-                                }), {
-                                    image: JSON.parse(response).image
-                                }).then(() => {
-                                })
+                                axios
+                                    .post(
+                                        route("admin.gallery.image.store", {
+                                            gallery_uuid: gallery.uuid
+                                        }),
+                                        {
+                                            image: JSON.parse(response).image,
+                                            thumbnail: JSON.parse(response).thumbnail
+                                        }
+                                    )
+                                    .then(() => {})
                             },
                             onerror: (response) => {
                                 console.log(response)
@@ -44,8 +49,6 @@ export default function AddImages({ auth, gallery }) {
                     labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
                 />
             </div>
-
         </AuthenticatedLayout>
     )
-
 }

@@ -1,28 +1,16 @@
 <?php
 
-use App\Models\Package;
+use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\GalleryController;
+use App\Http\Controllers\Frontend\PricingController;
+use App\Http\Controllers\Frontend\WelcomeController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Frontend/Welcome');
-});
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-Route::get('/contact', function () {
-    return Inertia::render('Frontend/Contact');
-})->name('contact');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+Route::get('/public/gallery', [GalleryController::class, 'publicGalleries'])->name('gallery.public'); // json url
+Route::get('/gallery/view', [GalleryController::class, 'galleryView'])->name('gallery.view');
 
-Route::get('/gallery', function () {
-    return Inertia::render('Frontend/Contact');
-})->name('gallery');
-
-Route::get('/pricing', function () {
-    $primaryPackages = Package::query()->where('type', 'primary')->with('package_services')->get();
-    $secondaryPackages = Package::query()->where('type', 'secondary')->with('package_services')->get();
-
-    return Inertia::render('Frontend/Pricing')
-        ->with([
-            'primaryPackages' => $primaryPackages,
-            'secondaryPackages' => $secondaryPackages,
-        ]);
-})->name('pricing');
+Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');

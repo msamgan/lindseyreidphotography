@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use App\Models\GalleryImage;
+use App\Repositories\GalleryRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -13,9 +14,18 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Intervention\Image\Drivers\Imagick\Driver;
+use Intervention\Image\ImageManager;
 
 class GalleryController extends Controller
 {
+    public function __construct(
+        private readonly GalleryRepository $galleryRepository
+    )
+    {
+        //
+    }
+
     public function index(): Response|ResponseFactory
     {
         return inertia('Backend/Gallery/Gallery');
@@ -50,12 +60,30 @@ class GalleryController extends Controller
     {
         $image = $request->file('file');
 
-        $imageData = $image->store('public/images');
+        $imageName = Str::slug($this->galleryRepository->getImageNameWithExtension($image)) . '-' . time();
+
+        $imageData = $image->storeAs(
+            'public/images',
+            $imageName . '.' . $image->getClientOriginalExtension()
+        );
 
         // remove the public/ from the path to store in the database
         $imageData = str_replace('public/', '', $imageData);
 
-        return response()->json(['image' => $imageData]);
+        $manager = new ImageManager(new Driver());
+        $thumbnailImage = $manager->read(storage_path('app/public/' . $imageData));
+
+        $thumbnailImage->scaleDown(null, 600);
+
+        $thumbnailPath = storage_path('app/public/images/thumbnails/' . $imageName . '.jpg');
+        $thumbnailPathNonPublic = 'images/thumbnails/' . $imageName . '.jpg';
+
+        $thumbnailImage->save($thumbnailPath);
+
+        return response()->json([
+                'image' => $imageData,
+                'thumbnail' => $thumbnailPathNonPublic]
+        );
     }
 
     public function store(Request $request): RedirectResponse
@@ -76,6 +104,7 @@ class GalleryController extends Controller
     {
         $galleryUuid = $request->get('gallery_uuid');
         $image = $request->get('image');
+        $thumbnail = $request->get('thumbnail');
 
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
@@ -83,6 +112,7 @@ class GalleryController extends Controller
             'gallery_id' => $gallery->id,
             'uuid' => Str::uuid(),
             'link' => $image,
+            'thumbnail_link' => $thumbnail,
         ]);
 
         return response()->json(['message' => 'Images added to gallery']);
@@ -95,9 +125,19 @@ class GalleryController extends Controller
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->with('images')->firstOrFail();
         $galleryImages = $gallery->images;
 
+        $processedImages = [];
+        foreach ($galleryImages as $image) {
+            $dims = $this->galleryRepository->getDimensions(storage_path("app/public/" . $image->thumbnail_link));
+            $processedImages[] = [
+                "src" => url('/' . $image->thumbnail_link),
+                "width" => $dims[0],
+                "height" => $dims[1],
+            ];
+        }
+
         return response()->json([
             'gallery' => $gallery,
-            'images' => $galleryImages,
+            'images' => $processedImages,
         ]);
     }
 
@@ -108,9 +148,14 @@ class GalleryController extends Controller
 
         GalleryImage::query()->where('gallery_id', $gallery->id)->get()->each(function ($image) {
             $imagePath = storage_path('app/public/' . $image->link);
+            $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
 
             if (file_exists($imagePath)) {
                 unlink($imagePath);
+            }
+
+            if (file_exists($imageThumbnailPath)) {
+                unlink($imageThumbnailPath);
             }
 
             $image->delete();
@@ -127,9 +172,14 @@ class GalleryController extends Controller
         $image = GalleryImage::query()->where('uuid', $imageUuid)->firstOrFail();
 
         $imagePath = storage_path('app/public/' . $image->link);
+        $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
 
         if (file_exists($imagePath)) {
             unlink($imagePath);
+        }
+
+        if (file_exists($imageThumbnailPath)) {
+            unlink($imageThumbnailPath);
         }
 
         $image->delete();

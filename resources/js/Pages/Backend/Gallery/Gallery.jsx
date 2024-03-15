@@ -35,7 +35,9 @@ export default function Gallery({ auth }) {
             <div className="py-12">
                 <div className="container mx-auto grid grid-cols-4 gap-1">
                     {galleries.length > 0 &&
-                        galleries.map((gallery, index) => <GalleryCard gallery={gallery} getGalleries={getGalleries} />)}
+                        galleries.map((gallery, index) => (
+                            <GalleryCard gallery={gallery} getGalleries={getGalleries} />
+                        ))}
                 </div>
             </div>
         </AuthenticatedLayout>
