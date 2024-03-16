@@ -3,11 +3,16 @@ import { useEffect, useState } from "react"
 import { Head } from "@inertiajs/react"
 import Loader from "@/Components/Loader.jsx"
 import { Gallery } from "react-grid-gallery"
-
+import Lightbox from "yet-another-react-lightbox"
+import "yet-another-react-lightbox/styles.css"
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
+import Zoom from "yet-another-react-lightbox/plugins/zoom"
 
 export default function GalleryCard({ auth, gallery }) {
     const [loading, setLoading] = useState(false)
     const [images, setImages] = useState([])
+    const [index, setIndex] = useState(-1)
+    const [lightBoxImages, setLightBoxImages] = useState([])
 
     const getImages = () => {
         axios(
@@ -17,7 +22,20 @@ export default function GalleryCard({ auth, gallery }) {
         ).then((response) => {
             setLoading(false)
             setImages(response.data.images)
+            setLightBoxImages(
+                response.data.images.map((image) => {
+                    return {
+                        src: image.original,
+                        width: image.width,
+                        height: image.height
+                    }
+                })
+            )
         })
+    }
+
+    const handleClickedImage = (index, image) => {
+        setIndex(index)
     }
 
     useEffect(() => {
@@ -42,11 +60,24 @@ export default function GalleryCard({ auth, gallery }) {
                         <Loader />
                     ) : (
                         <section className="py-6 bg-gray-100">
-                            <div className="text-left text-gray-800 text-xl font-semibold ml-4">
+                            <div className="text-left text-gray-800 text-3xl font-semibold ml-4 mb-6 sunydale">
                                 Total Images: {images.length}
                             </div>
 
-                            <Gallery images={images} rowHeight={600} />
+                            <Gallery
+                                images={images}
+                                onClick={handleClickedImage}
+                                enableImageSelection={false}
+                                rowHeight={400}
+                            />
+
+                            <Lightbox
+                                slides={lightBoxImages}
+                                plugins={[Fullscreen, Zoom]}
+                                open={index >= 0}
+                                index={index}
+                                close={() => setIndex(-1)}
+                            />
                         </section>
                     )}
                 </div>

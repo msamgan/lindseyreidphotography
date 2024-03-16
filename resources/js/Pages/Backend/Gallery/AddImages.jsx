@@ -23,8 +23,11 @@ export default function AddImages({ auth, gallery }) {
                     files={files}
                     onupdatefiles={setFiles}
                     allowMultiple={true}
+                    maxParallelUploads={3}
                     server={{
-                        url: route("admin.image.store"),
+                        url: route("admin.image.store", {
+                            gallery: gallery.uuid
+                        }),
                         process: {
                             headers: {},
                             onload: (response) => {

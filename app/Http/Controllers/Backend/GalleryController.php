@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\UploadImageToS3;
 use App\Models\Gallery;
 use App\Models\GalleryImage;
 use App\Repositories\GalleryRepository;
@@ -14,8 +15,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Inertia\Response;
 use Inertia\ResponseFactory;
-use Intervention\Image\Drivers\Imagick\Driver;
-use Intervention\Image\ImageManager;
 
 class GalleryController extends Controller
 {
@@ -59,31 +58,22 @@ class GalleryController extends Controller
     public function imageStore(Request $request): JsonResponse
     {
         $image = $request->file('file');
-
+        $galleryUuid = $request->get('gallery');
         $imageName = Str::slug($this->galleryRepository->getImageNameWithExtension($image)) . '-' . time();
+        $fileName = $imageName . '.' . $image->getClientOriginalExtension();
+        $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
-        $imageData = $image->storeAs(
-            'public/images',
-            $imageName . '.' . $image->getClientOriginalExtension()
-        );
+        $dirName = Str::slug($gallery->name);
 
-        // remove the public/ from the path to store in the database
-        $imageData = str_replace('public/', '', $imageData);
+        $image->storeAs($dirName, $fileName, 's3');
+        $thumbnailPath = $this->galleryRepository->creteThumbnail($image, $dirName, $imageName);
 
-        $manager = new ImageManager(new Driver());
-        $thumbnailImage = $manager->read(storage_path('app/public/' . $imageData));
-
-        $thumbnailImage->scaleDown(null, 600);
-
-        $thumbnailPath = storage_path('app/public/images/thumbnails/' . $imageName . '.jpg');
-        $thumbnailPathNonPublic = 'images/thumbnails/' . $imageName . '.jpg';
-
-        $thumbnailImage->save($thumbnailPath);
+        // UploadImageToS3::dispatch($dirName, $fileName);
 
         return response()->json([
-                'image' => $imageData,
-                'thumbnail' => $thumbnailPathNonPublic]
-        );
+            'image' => 'https://lindsey-reid-photography.s3.amazonaws.com/' . $dirName . '/' . $fileName,
+            'thumbnail' => $thumbnailPath,
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -91,7 +81,7 @@ class GalleryController extends Controller
         $name = $request->get('name');
         $password = $request->get('password') ? Hash::make($request->get('password')) : null;
 
-        $gallery = Gallery::create([
+        Gallery::create([
             'uuid' => Str::uuid(),
             'name' => $name,
             'password' => $password,
@@ -121,17 +111,17 @@ class GalleryController extends Controller
     public function galleryImages(Request $request): JsonResponse
     {
         $galleryUuid = $request->get('gallery');
-        $page = $request->get('page') ?? 1;
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->with('images')->firstOrFail();
-        $galleryImages = $gallery->images;
 
         $processedImages = [];
-        foreach ($galleryImages as $image) {
-            $dims = $this->galleryRepository->getDimensions(storage_path("app/public/" . $image->thumbnail_link));
+        foreach ($gallery->images as $image) {
+            $dims = getimagesize(storage_path('app/public/' . $image->thumbnail_link));
             $processedImages[] = [
-                "src" => url('/' . $image->thumbnail_link),
-                "width" => $dims[0],
-                "height" => $dims[1],
+                'uuid' => $image->uuid,
+                'src' => url('/' . $image->thumbnail_link),
+                'original' => url($image->link),
+                'width' => $dims[0],
+                'height' => $dims[1],
             ];
         }
 
