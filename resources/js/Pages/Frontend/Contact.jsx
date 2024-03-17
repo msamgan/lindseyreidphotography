@@ -32,7 +32,7 @@ export default function Contact() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full p-3 text-sm font-bold tracki uppercase rounded bg-orange-600 text-gray-50"
+                        className="w-full p-3 text-sm font-bold tracki uppercase rounded bg-black text-gray-50"
                     >
                         Send Message
                     </button>

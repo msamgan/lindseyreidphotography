@@ -2,6 +2,7 @@ import TextInput from "@/Components/TextInput.jsx"
 import { useForm } from "@inertiajs/react"
 import InputError from "@/Components/InputError.jsx"
 import { Transition } from "@headlessui/react"
+import PrimaryButton from "@/Components/PrimaryButton.jsx"
 
 export default function GalleryForm({ getGalleries }) {
     const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -25,7 +26,7 @@ export default function GalleryForm({ getGalleries }) {
 
     return (
         <form onSubmit={submit} className="mt-6 space-y-6">
-            <div className="flex w-2/3 items-center border-b border-orange-600 py-2">
+            <div className="flex w-2/3 items-center border-b border-black py-2">
                 <TextInput
                     label="Gallery Name"
                     name="gallery_name"
@@ -47,12 +48,12 @@ export default function GalleryForm({ getGalleries }) {
                     placeholder={"Enter Password (optional)"}
                     className={"appearance-none bg-transparent border-none text-gray-700 mr-3 w-full"}
                 />
-                <button
-                    className="flex-shrink-0 bg-orange-500 hover:bg-orange-700 hover:border-orange-700 text-lg text-white py-1 px-2 rounded"
+                <PrimaryButton
+                    className="flex-shrink-0 hover:bg-white hover:text-black hover:border-black text-lg text-white py-1 px-2 rounded"
                     type="submit"
                 >
                     Create Gallery
-                </button>
+                </PrimaryButton>
                 <Transition
                     show={recentlySuccessful}
                     enter="transition ease-in-out"

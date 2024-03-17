@@ -12,8 +12,8 @@ export default function NavLink({ active = false, className = "", children, ...p
             <span
                 className={
                     active
-                        ? "bg-orange-500 p-2 rounded-md text-white"
-                        : "hover:bg-orange-500 hover:text-white p-2 rounded-md"
+                        ? "bg-white text-black p-2 rounded-md"
+                        : "hover:bg-white hover:text-black p-2 rounded-md"
                 }
             >
                 {children}

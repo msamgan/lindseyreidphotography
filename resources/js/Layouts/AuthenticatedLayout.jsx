@@ -28,7 +28,7 @@ export default function AuthenticatedLayout({ user, header, subMenu, children })
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-orange-600 border-b border-gray-100">
+            <nav className="bg-black border-b border-gray-100">
                 <div className="container mx-auto">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -54,7 +54,7 @@ export default function AuthenticatedLayout({ user, header, subMenu, children })
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-lg leading-4 font-medium rounded-md bg-orange-600 text-white hover:bg-orange-500 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-lg leading-4 font-medium rounded-md bg-black text-white hover:bg-white hover:text-black focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
 

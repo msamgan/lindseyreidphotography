@@ -7,12 +7,15 @@ import Lightbox from "yet-another-react-lightbox"
 import "yet-another-react-lightbox/styles.css"
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
 import Zoom from "yet-another-react-lightbox/plugins/zoom"
+import DangerButton from "@/Components/DangerButton.jsx"
+import PrimaryButton from "@/Components/PrimaryButton.jsx"
 
 export default function GalleryCard({ auth, gallery }) {
     const [loading, setLoading] = useState(false)
     const [images, setImages] = useState([])
     const [index, setIndex] = useState(-1)
     const [lightBoxImages, setLightBoxImages] = useState([])
+    const [selectedImages, setSelectedImages] = useState([])
 
     const getImages = () => {
         axios(
@@ -38,10 +41,26 @@ export default function GalleryCard({ auth, gallery }) {
         setIndex(index)
     }
 
+    const handleSelect = (index, item, event) => {
+        const nextImages = images.map((image, i) =>
+            i === index ? { ...image, isSelected: !image.isSelected } : image
+        )
+
+        setImages(nextImages)
+
+        const selected = nextImages.filter((image) => image.isSelected)
+        setSelectedImages(selected)
+    }
+
     useEffect(() => {
         setLoading(true)
         getImages()
     }, [])
+
+
+    useEffect(() => {
+        console.log(selectedImages)
+    }, [selectedImages])
 
     return (
         <AuthenticatedLayout
@@ -59,26 +78,50 @@ export default function GalleryCard({ auth, gallery }) {
                     {loading ? (
                         <Loader />
                     ) : (
-                        <section className="py-6 bg-gray-100">
-                            <div className="text-left text-gray-800 text-3xl font-semibold ml-4 mb-6 sunydale">
-                                Total Images: {images.length}
+                        <>
+                            <div>
+                                <div className="text-left text-gray-800 text-3xl font-semibold ml-4 mb-6 sunydale">
+                                    Total Images: {images.length}
+                                </div>
                             </div>
+                            <div className="flex justify-end mb-4">
+                                <DangerButton
+                                    disabled={selectedImages.length === 0}
+                                    onClick={() => {
+                                        console.log(selectedImages)
+                                    }}
+                                >
+                                    Delete
+                                </DangerButton>
+                                <PrimaryButton
+                                    disabled={selectedImages.length !== 1}
+                                    className={"ml-3"}
+                                    onClick={() => {
+                                        console.log(selectedImages)
+                                    }}
+                                >
+                                    Set as Cover
+                                </PrimaryButton>
+                            </div>
+                            <section className="py-6">
+                                <Gallery
+                                    images={images}
+                                    onClick={handleClickedImage}
+                                    enableImageSelection={true}
+                                    onSelect={handleSelect}
+                                    rowHeight={400}
+                                    margin={5}
+                                />
 
-                            <Gallery
-                                images={images}
-                                onClick={handleClickedImage}
-                                enableImageSelection={false}
-                                rowHeight={400}
-                            />
-
-                            <Lightbox
-                                slides={lightBoxImages}
-                                plugins={[Fullscreen, Zoom]}
-                                open={index >= 0}
-                                index={index}
-                                close={() => setIndex(-1)}
-                            />
-                        </section>
+                                <Lightbox
+                                    slides={lightBoxImages}
+                                    plugins={[Fullscreen, Zoom]}
+                                    open={index >= 0}
+                                    index={index}
+                                    close={() => setIndex(-1)}
+                                />
+                            </section>
+                        </>
                     )}
                 </div>
             </div>

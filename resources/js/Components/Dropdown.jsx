@@ -65,7 +65,7 @@ const Content = ({ align = "right", width = "48", contentClasses = "py-1 bg-whit
                 >
                     <div
                         className={
-                            `rounded-md ring-1 ring-black ring-opacity-5 bg-orange-600 ` + contentClasses
+                            `rounded-md ring-1 ring-black ring-opacity-5 bg-black ` + contentClasses
                         }
                     >
                         {children}
@@ -81,7 +81,7 @@ const DropdownLink = ({ className = "", children, ...props }) => {
         <Link
             {...props}
             className={
-                "block w-full px-4 py-2 text-left text-lg leading-5 text-white hover:bg-orange-500 focus:outline-none focus:bg-orange-500 transition duration-150 ease-in-out " +
+                "block w-full px-4 py-2 text-left text-lg leading-5 text-white hover:bg-white hover:text-black focus:outline-none focus:bg-white transition duration-150 ease-in-out " +
                 className
             }
         >

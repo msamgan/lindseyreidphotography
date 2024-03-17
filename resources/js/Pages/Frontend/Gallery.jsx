@@ -11,6 +11,8 @@ export default function Gallery() {
         axios.get(route("gallery.public")).then((response) => {
             setLoading(false)
             setGalleries(response.data)
+
+            console.log(response.data)
         })
     }
 
@@ -23,7 +25,7 @@ export default function Gallery() {
         <FrontLayout title={"Gallery"}>
             <section className="py-6 bg-gray-100">
                 <div className="container flex flex-col justify-center p-4 mx-auto">
-                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 sm:grid-cols-2">
+                    {/*<div className="grid grid-cols-1 gap-4 lg:grid-cols-4 sm:grid-cols-2">
                         {loading ? (
                             <Loader />
                         ) : (
@@ -46,7 +48,7 @@ export default function Gallery() {
                                 )
                             })
                         )}
-                    </div>
+                    </div>*/}
                 </div>
             </section>
         </FrontLayout>

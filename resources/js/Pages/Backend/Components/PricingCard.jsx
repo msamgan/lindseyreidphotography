@@ -28,7 +28,7 @@ export default function PricingCard({ pack }) {
                 <div className="space-y-2">
                     <EditSave
                         className={"mb-2"}
-                        displayHtml={<h3 className="text-xl font-semibold text-orange-600">{name}</h3>}
+                        displayHtml={<h3 className="text-xl font-semibold text-black">{name}</h3>}
                         displayData={name}
                         dataUpdateSetter={setName}
                         updateRoute={route("admin.name.update")}

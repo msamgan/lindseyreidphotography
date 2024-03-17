@@ -153,7 +153,7 @@ export default function GalleryCard({ gallery, getGalleries }) {
                 className="object-cover object-center w-full rounded-md h-72 bg-gray-500"
             />
             <div className="mt-6 mb-2">
-                <span className="block text-lg font-medium tracki uppercase text-orange-600 mb-2 m-4">
+                <span className="block text-lg font-medium tracki uppercase text-black mb-2 m-4">
                     {dateFormatter(gallery.created_at)}
                 </span>
                 <h2 className="text-2xl font-semibold tracki m-4">{gallery.name}</h2>
