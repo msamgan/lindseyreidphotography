@@ -158,21 +158,24 @@ class GalleryController extends Controller
 
     public function deleteGalleryImage(Request $request): JsonResponse
     {
-        $imageUuid = $request->get('image');
-        $image = GalleryImage::query()->where('uuid', $imageUuid)->firstOrFail();
+        $imagesUuid = $request->get('images');
 
-        $imagePath = storage_path('app/public/' . $image->link);
-        $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
+        foreach ($imagesUuid as $imageUuid) {
+            $image = GalleryImage::query()->where('uuid', $imageUuid)->firstOrFail();
 
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
+            // $imagePath = storage_path('app/public/' . $image->link);
+            $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
+
+            /*if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }*/
+
+            if (file_exists($imageThumbnailPath)) {
+                unlink($imageThumbnailPath);
+            }
+
+            $image->delete();
         }
-
-        if (file_exists($imageThumbnailPath)) {
-            unlink($imageThumbnailPath);
-        }
-
-        $image->delete();
 
         return response()->json(['message' => 'Image deleted']);
     }

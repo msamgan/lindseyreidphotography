@@ -9,6 +9,7 @@ import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
 import Zoom from "yet-another-react-lightbox/plugins/zoom"
 import DangerButton from "@/Components/DangerButton.jsx"
 import PrimaryButton from "@/Components/PrimaryButton.jsx"
+import Swal from "sweetalert2"
 
 export default function GalleryCard({ auth, gallery }) {
     const [loading, setLoading] = useState(false)
@@ -88,7 +89,29 @@ export default function GalleryCard({ auth, gallery }) {
                                 <DangerButton
                                     disabled={selectedImages.length === 0}
                                     onClick={() => {
-                                        console.log(selectedImages)
+                                        Swal.fire({
+                                            title: "Are you sure?",
+                                            text: "You won't be able to revert this!",
+                                            icon: "warning",
+                                            confirmButtonColor: "#d70707",
+                                            showCancelButton: true,
+                                            confirmButtonText: "Yes, delete it!",
+                                            cancelButtonText: "No, cancel!"
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                axios
+                                                    .delete(
+                                                        route("admin.gallery.image.delete", {
+                                                            images: selectedImages.map(
+                                                                (image) => image.uuid
+                                                            )
+                                                        })
+                                                    )
+                                                    .then(() => {
+                                                        getImages()
+                                                    })
+                                            }
+                                        })
                                     }}
                                 >
                                     Delete
