@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->prefix('backend/gallery')->group(function () {
     Route::get('/', [GalleryController::class, 'index'])->name('admin.gallery');
+    Route::get('create', [GalleryController::class, 'create'])->name('admin.gallery.create');
     Route::post('store', [GalleryController::class, 'store'])->name('admin.gallery.store');
+
     Route::get('all', [GalleryController::class, 'allGalleries'])->name('admin.gallery.all');
 
     Route::get('add-images', [GalleryController::class, 'addImages'])->name('admin.gallery.add-images');
@@ -15,5 +17,6 @@ Route::middleware(['auth', 'verified'])->prefix('backend/gallery')->group(functi
 
     Route::get('view/', [GalleryController::class, 'viewGallery'])->name('admin.gallery.view');
     Route::get('images/', [GalleryController::class, 'galleryImages'])->name('admin.gallery.images');
+    Route::put('cover/update/', [GalleryController::class, 'updateGalleryCover'])->name('admin.gallery.image.cover-update');
     Route::delete('image/delete/', [GalleryController::class, 'deleteGalleryImage'])->name('admin.gallery.image.delete');
 });

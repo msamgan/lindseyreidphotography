@@ -15,25 +15,25 @@ class GalleryRepository
     public function creteThumbnail($image, $dirName, $imageName): string
     {
         $manager = new ImageManager(new Driver());
-        $thumbnailImage = $manager->read($image->getPath() . '/' . $image->getFilename());
+        $thumbnailImage = $manager->read($image->getPath().'/'.$image->getFilename());
 
         $thumbnailImage->scaleDown(null, 600);
 
         $thumbnailDirectory = storage_path('app/public/thumbnails/');
 
-        if (!file_exists($thumbnailDirectory)) {
+        if (! file_exists($thumbnailDirectory)) {
             mkdir($thumbnailDirectory, 0777, true);
         }
 
-        $dirPath = storage_path('app/public/thumbnails/' . $dirName);
+        $dirPath = storage_path('app/public/thumbnails/'.$dirName);
 
-        if (!file_exists($dirPath)) {
+        if (! file_exists($dirPath)) {
             mkdir($dirPath, 0777, true);
         }
 
-        $thumbnailPath = $dirPath . '/' . $imageName . '.jpg';
+        $thumbnailPath = $dirPath.'/'.$imageName.'.jpg';
 
-        $accessPath = 'thumbnails/' . $dirName . '/' . $imageName . '.jpg';
+        $accessPath = 'thumbnails/'.$dirName.'/'.$imageName.'.jpg';
 
         $thumbnailImage->save($thumbnailPath);
 

@@ -1,8 +1,7 @@
 import { useState } from "react"
-import ApplicationLogo from "@/Components/ApplicationLogo"
 import Dropdown from "@/Components/Dropdown"
 import NavLink from "@/Components/NavLink"
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink"
+import PrimaryButton from "@/Components/PrimaryButton.jsx"
 import { Link } from "@inertiajs/react"
 
 const mainMenu = [
@@ -48,6 +47,12 @@ export default function AuthenticatedLayout({ user, header, subMenu, children })
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
+                            <Link href={route("admin.gallery.create")}>
+                                <PrimaryButton className="mr-3 bg-blue-600 hover:bg-blue-700">
+                                    Add Gallery
+                                </PrimaryButton>
+                            </Link>
+
                             <div className="ml-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>

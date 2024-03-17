@@ -24,16 +24,16 @@ export default function Gallery({ auth }) {
         >
             <Head title="Gallery" />
 
-            <div className="py-12">
+            {/* <div className="py-12">
                 <div className="container mx-auto">
                     <GalleryForm getGalleries={getGalleries} />
                 </div>
             </div>
 
-            <hr />
+            <hr />*/}
 
             <div className="py-12">
-                <div className="container mx-auto grid grid-cols-4 gap-1">
+                <div className="container mx-auto grid grid-cols-3 gap-1">
                     {galleries.length > 0 &&
                         galleries.map((gallery, index) => (
                             <GalleryCard gallery={gallery} getGalleries={getGalleries} />
