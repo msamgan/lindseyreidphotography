@@ -11,7 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('galleries', function (Blueprint $table) {
-            $table->dateTime('can_download')->nullable()->after('cover');
+            $table->boolean('is_public')->default(true)->after('password');
+            $table->boolean('can_download')->default(false)->after('cover');
+            $table->dateTime('download_duration')->nullable()->after('can_download');
         });
     }
 

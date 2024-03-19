@@ -13,11 +13,13 @@ class Gallery extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['uuid', 'name', 'password', 'cover', 'can_download'];
+    protected $hidden = ['password', 'id', 'updated_at'];
+
+    protected $fillable = ['uuid', 'name', 'password', 'cover', 'can_download', 'download_duration', 'is_public'];
 
     public function scopeIsPublic($query)
     {
-        return $query->whereNull('password');
+        return $query->where('is_public', true);
     }
 
     public function images(): HasMany

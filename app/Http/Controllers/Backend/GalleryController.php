@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Response;
 use Inertia\ResponseFactory;
@@ -43,7 +43,7 @@ class GalleryController extends Controller
 
     public function allGalleries(): Collection
     {
-        return Gallery::query()->orderByDesc('created_at')->with('images')->get();
+        return Gallery::query()->orderByDesc('created_at')->get();
     }
 
     public function addImages(Request $request): Response|ResponseFactory
@@ -62,7 +62,7 @@ class GalleryController extends Controller
         $fileName = $imageName . '.' . $image->getClientOriginalExtension();
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
-        $dirName = Str::slug($gallery->name);
+        $dirName = $gallery->uuid;
 
         $image->storeAs($dirName, $fileName, 's3');
         $thumbnailPath = $this->galleryRepository->creteThumbnail($image, $dirName, $imageName);
@@ -77,18 +77,7 @@ class GalleryController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $name = $request->get('name');
-        $password = $request->get('password') ? Hash::make($request->get('password')) : null;
-        $duration = $request->get('can_download')
-            ? (now()->addDays((int)$request->get('download_duration')))->format('Y-m-d H:i:s')
-            : null;
-
-        Gallery::create([
-            'uuid' => Str::uuid(),
-            'name' => $name,
-            'password' => $password,
-            'can_download' => $duration,
-        ]);
+        Gallery::create($this->galleryRepository->processGalleryObject($request));
 
         return redirect()->route('admin.gallery');
     }
@@ -96,6 +85,17 @@ class GalleryController extends Controller
     public function create(): Response|ResponseFactory
     {
         return inertia('Backend/Gallery/Create');
+    }
+
+    public function update(Request $request): RedirectResponse
+    {
+        $galleryUuid = $request->get('gallery');
+
+        Gallery::query()->where('uuid', $galleryUuid)->update(
+            $this->galleryRepository->processGalleryObject($request, $galleryUuid)
+        );
+
+        return redirect()->route('admin.gallery');
     }
 
     public function edit(Request $request): Response|ResponseFactory
@@ -135,7 +135,7 @@ class GalleryController extends Controller
             $processedImages[] = [
                 'uuid' => $image->uuid,
                 'src' => url('/' . $image->thumbnail_link),
-                'original' => url($image->link),
+                'original' => url("https://lindsey-reid-photography.s3.amazonaws.com/" . $image->link),
                 'width' => $dims[0],
                 'height' => $dims[1],
             ];
@@ -166,20 +166,10 @@ class GalleryController extends Controller
         $galleryUuid = $request->get('gallery');
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
-        GalleryImage::query()->where('gallery_id', $gallery->id)->get()->each(function ($image) {
-            $imagePath = storage_path('app/public/' . $image->link);
-            $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
+        $this->galleryRepository->deleteThumbnailDir(storage_path('app/public/thumbnails/' . $gallery->uuid));
+        GalleryImage::query()->where('gallery_id', $gallery->id)->delete();
 
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-
-            if (file_exists($imageThumbnailPath)) {
-                unlink($imageThumbnailPath);
-            }
-
-            $image->delete();
-        });
+        Storage::disk('s3')->deleteDirectory($gallery->uuid);
 
         $gallery->delete();
 
@@ -193,16 +183,13 @@ class GalleryController extends Controller
         foreach ($imagesUuid as $imageUuid) {
             $image = GalleryImage::query()->where('uuid', $imageUuid)->firstOrFail();
 
-            // $imagePath = storage_path('app/public/' . $image->link);
             $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
-
-            /*if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }*/
 
             if (file_exists($imageThumbnailPath)) {
                 unlink($imageThumbnailPath);
             }
+
+            Storage::disk('s3')->delete($image->link);
 
             $image->delete();
         }

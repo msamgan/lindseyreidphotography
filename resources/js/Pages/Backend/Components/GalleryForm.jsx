@@ -1,9 +1,9 @@
 import TextInput from "@/Components/TextInput.jsx"
 import { useState } from "react"
 
-export default function GalleryForm({ data, setData }) {
-    const [isPasswordVisible, setIsPasswordVisible] = useState("hidden")
-    const [isDownloadDurationVisible, setIsDownloadDurationVisible] = useState("hidden")
+export default function GalleryForm({ data, setData, isPublic = true }) {
+    const [isPasswordVisible, setIsPasswordVisible] = useState(isPublic ? "hidden" : "")
+    const [isDownloadDurationVisible, setIsDownloadDurationVisible] = useState(data.can_download ? "" : "hidden")
 
     return (
         <section className="p-6 bg-gray-100 text-gray-900">
@@ -97,6 +97,7 @@ export default function GalleryForm({ data, setData }) {
                             className={
                                 "w-full mt-1 rounded-md focus:ring focus:ring-opacity-75 focus:ring-black border-gray-300 text-gray-900"
                             }
+                            defaultValue={data.download_duration - 1}
                         >
                             <option value="">Select duration</option>
                             <option value={3652}>Indefinite</option>
