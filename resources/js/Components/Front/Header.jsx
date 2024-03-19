@@ -5,15 +5,15 @@ export default function Header() {
         return [
             {
                 label: "Gallery",
-                name: "gallery"
+                name: "/gallery"
             },
             {
                 label: "Contact",
-                name: "contact"
+                name: "/contact"
             },
             {
                 label: "Pricing",
-                name: "pricing"
+                name: "/pricing"
             }
         ]
     }

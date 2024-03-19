@@ -11,14 +11,11 @@ export default function FrontLayout({ auth, children, title }) {
             <div className={""}>
                 <div className={"max-w-7xl mx-auto text-center"}>
                     <Link href={"/"}>
-                        <h1 className={"text-4xl mb-4 dancing-script-heading mt-20 mb-20"}>{appName}</h1>
+                        <h1 className={"text-4xl dancing-script-heading mt-20 mb-20"}>{appName}</h1>
                     </Link>
                 </div>
-
                 <Header />
-
                 {children}
-
                 <Footer />
             </div>
         </>

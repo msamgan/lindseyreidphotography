@@ -3,7 +3,8 @@ export default function Footer() {
         <footer className="py-6 bg-gray-100 text-gray-900">
             <div className="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
                 <div className="grid grid-cols-12">
-                    <div className="pb-6 col-span-full md:pb-0 md:col-span-6">
+
+                    <div className="pb-6 col-span-full md:pb-0 md:col-span-8">
                         <p className="flex justify-center space-x-3 md:justify-start px-12 text-xl">
                             We are a wedding, engagement, and portraiture photography company based in Kutztown,
                             PA, servicing the Berks, Bucks, Philadelphia and Lehigh Valley areas, with
@@ -14,16 +15,16 @@ export default function Footer() {
 
                     <div className="col-span-12 text-center md:text-left md:col-span-3 mb-2">
                         <p className="pb-1 text-2xl font-medium sunydale">Contact Information</p>
-                        <ul>
+                        <ul className={'mt-2'}>
                             <li>
-                                <a rel="noopener noreferrer" href="#" className="hover:text-orange-600 text-xl">
-                                    photographybylbr@gmail.com
+                                <a rel="noopener noreferrer" href="#" className="hover:text-orange-600 text-xl pt-2">
+                                    photo@lindseybreid.com
                                 </a>
                             </li>
-                            <li className={"text-xl"}>Kutztown, PA United States</li>
+                            <li className={"text-xl pt-2"}>Kutztown, PA United States</li>
                         </ul>
                     </div>
-                    <div className="col-span-12 text-center md:text-left md:col-span-3">
+                    {/*<div className="col-span-12 text-center md:text-left md:col-span-3">
                         <p className="pb-1 text-2xl font-medium sunydale">Client Access</p>
                         <div className={"flex flex-row"}>
                             <input
@@ -35,7 +36,7 @@ export default function Footer() {
                                 Go
                             </button>
                         </div>
-                    </div>
+                    </div>*/}
                 </div>
                 <div className="grid justify-center pt-6 lg:justify-between">
                     <div className="flex flex-col self-center text-sm text-center md:block lg:col-start-1 md:space-x-6 sunydale">
