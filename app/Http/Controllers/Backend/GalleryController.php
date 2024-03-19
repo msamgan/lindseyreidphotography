@@ -93,9 +93,17 @@ class GalleryController extends Controller
         return redirect()->route('admin.gallery');
     }
 
-    public function create()
+    public function create(): Response|ResponseFactory
     {
         return inertia('Backend/Gallery/Create');
+    }
+
+    public function edit(Request $request): Response|ResponseFactory
+    {
+        $galleryUuid = $request->get('gallery');
+        $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
+
+        return inertia('Backend/Gallery/Edit')->with('gallery', $gallery);
     }
 
     public function galleryImageStore(Request $request): JsonResponse

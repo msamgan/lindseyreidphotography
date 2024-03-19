@@ -2,8 +2,8 @@ import TextInput from "@/Components/TextInput.jsx"
 import { useState } from "react"
 
 export default function GalleryForm({ data, setData }) {
-    const [isPasswordVisible, setIsPasswordVisible] = useState(true)
-    const [isDownloadDurationVisible, setIsDownloadDurationVisible] = useState(true)
+    const [isPasswordVisible, setIsPasswordVisible] = useState("hidden")
+    const [isDownloadDurationVisible, setIsDownloadDurationVisible] = useState("hidden")
 
     return (
         <section className="p-6 bg-gray-100 text-gray-900">
@@ -29,9 +29,9 @@ export default function GalleryForm({ data, setData }) {
                             id="public-access"
                             type="radio"
                             placeholder=""
-                            checked={isPasswordVisible}
+                            checked={isPasswordVisible === "hidden"}
                             name={"access"}
-                            onChange={() => setIsPasswordVisible(true)}
+                            onChange={() => setIsPasswordVisible("hidden")}
                             className="rounded-md focus:ring focus:ring-opacity-75 focus:ring-black border-gray-300 text-gray-900"
                         />
                         <label htmlFor="public-access" className="text-xl ml-3 cursor-pointer">
@@ -42,8 +42,9 @@ export default function GalleryForm({ data, setData }) {
                             id="private-access"
                             type="radio"
                             placeholder=""
+                            checked={isPasswordVisible === ""}
                             name={"access"}
-                            onChange={() => setIsPasswordVisible(false)}
+                            onChange={() => setIsPasswordVisible("")}
                             className="rounded-md focus:ring focus:ring-opacity-75 focus:ring-black border-gray-300 text-gray-900 ml-3"
                         />
                         <label htmlFor="private-access" className="text-xl ml-3 cursor-pointer">
@@ -51,7 +52,7 @@ export default function GalleryForm({ data, setData }) {
                         </label>
                     </div>
 
-                    <div className={isPasswordVisible ? "hidden" : "" + " col-span-full sm:col-span-3 mt-4"}>
+                    <div className={isPasswordVisible + " col-span-full sm:col-span-3 mt-4"}>
                         <label htmlFor="password" className="text-sm">
                             Password
                             <sup className="text-red-600 ml-1">*</sup>
@@ -59,7 +60,7 @@ export default function GalleryForm({ data, setData }) {
                         <TextInput
                             id="password"
                             type="password"
-                            required={!isPasswordVisible}
+                            required={isPasswordVisible === ""}
                             placeholder="Password"
                             onChange={(e) => setData("password", e.target.value)}
                             value={data.password}
@@ -72,10 +73,11 @@ export default function GalleryForm({ data, setData }) {
                             id="download"
                             type="checkbox"
                             placeholder=""
+                            checked={isDownloadDurationVisible === ""}
                             name={"download"}
                             onChange={(e) => {
                                 setData("can_download", e.target.checked)
-                                setIsDownloadDurationVisible(!isDownloadDurationVisible)
+                                setIsDownloadDurationVisible(isDownloadDurationVisible === "" ? "hidden" : "")
                             }}
                             className="rounded-md focus:ring focus:ring-opacity-75 focus:ring-black border-gray-300 text-gray-900"
                         />
@@ -83,14 +85,14 @@ export default function GalleryForm({ data, setData }) {
                             Can download
                         </label>
                     </div>
-                    <div className={isDownloadDurationVisible ? "hidden" : "" + " col-span-full sm:col-span-3"}>
+                    <div className={isDownloadDurationVisible + " col-span-full sm:col-span-3"}>
                         <label htmlFor="download-duration" className="text-sm">
                             Download Duration
                             <sup className="text-red-600 ml-1">*</sup>
                         </label>
                         <select
                             id="download-duration"
-                            required={!isDownloadDurationVisible}
+                            required={isDownloadDurationVisible === ""}
                             onChange={(e) => setData("download_duration", e.target.value)}
                             className={
                                 "w-full mt-1 rounded-md focus:ring focus:ring-opacity-75 focus:ring-black border-gray-300 text-gray-900"

@@ -8,6 +8,9 @@ Route::middleware(['auth', 'verified'])->prefix('backend/gallery')->group(functi
     Route::get('create', [GalleryController::class, 'create'])->name('admin.gallery.create');
     Route::post('store', [GalleryController::class, 'store'])->name('admin.gallery.store');
 
+    Route::get('edit', [GalleryController::class, 'edit'])->name('admin.gallery.edit');
+    Route::post('update', [GalleryController::class, 'update'])->name('admin.gallery.update');
+
     Route::get('all', [GalleryController::class, 'allGalleries'])->name('admin.gallery.all');
 
     Route::get('add-images', [GalleryController::class, 'addImages'])->name('admin.gallery.add-images');
