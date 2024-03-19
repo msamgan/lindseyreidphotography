@@ -16,7 +16,7 @@ export default function Contact() {
                             </p>
                         </div>
                     </div>
-                    <img src={"/img/lindsey.png"} alt="" className="h-auto w-2/3 mt-6 rounded-md" />
+                    <img src={"/img/lindsey.png"} alt="" className="h-auto w-2/3 mt-4    rounded-md" />
                 </div>
                 <form noValidate="" className="space-y-8 mt-28">
                     <div>
