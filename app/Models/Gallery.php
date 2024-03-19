@@ -13,7 +13,7 @@ class Gallery extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['uuid', 'name', 'password', 'cover'];
+    protected $fillable = ['uuid', 'name', 'password', 'cover', 'can_download'];
 
     public function scopeIsPublic($query)
     {

@@ -19,7 +19,8 @@ class GalleryController extends Controller
 {
     public function __construct(
         private readonly GalleryRepository $galleryRepository
-    ) {
+    )
+    {
         //
     }
 
@@ -33,7 +34,7 @@ class GalleryController extends Controller
         $galleryUuid = $request->get('gallery');
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
-        if (! $gallery) {
+        if (!$gallery) {
             abort(404, 'Gallery not found');
         }
 
@@ -57,8 +58,8 @@ class GalleryController extends Controller
     {
         $image = $request->file('file');
         $galleryUuid = $request->get('gallery');
-        $imageName = Str::slug($this->galleryRepository->getImageNameWithExtension($image)).'-'.time();
-        $fileName = $imageName.'.'.$image->getClientOriginalExtension();
+        $imageName = Str::slug($this->galleryRepository->getImageNameWithExtension($image)) . '-' . time();
+        $fileName = $imageName . '.' . $image->getClientOriginalExtension();
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
         $dirName = Str::slug($gallery->name);
@@ -69,7 +70,7 @@ class GalleryController extends Controller
         // UploadImageToS3::dispatch($dirName, $fileName);
 
         return response()->json([
-            'image' => $dirName.'/'.$fileName,
+            'image' => $dirName . '/' . $fileName,
             'thumbnail' => $thumbnailPath,
         ]);
     }
@@ -78,11 +79,15 @@ class GalleryController extends Controller
     {
         $name = $request->get('name');
         $password = $request->get('password') ? Hash::make($request->get('password')) : null;
+        $duration = $request->get('can_download')
+            ? (now()->addDays((int)$request->get('download_duration')))->format('Y-m-d H:i:s')
+            : null;
 
         Gallery::create([
             'uuid' => Str::uuid(),
             'name' => $name,
             'password' => $password,
+            'can_download' => $duration,
         ]);
 
         return redirect()->route('admin.gallery');
@@ -118,10 +123,10 @@ class GalleryController extends Controller
 
         $processedImages = [];
         foreach ($gallery->images as $image) {
-            $dims = getimagesize(storage_path('app/public/'.$image->thumbnail_link));
+            $dims = getimagesize(storage_path('app/public/' . $image->thumbnail_link));
             $processedImages[] = [
                 'uuid' => $image->uuid,
-                'src' => url('/'.$image->thumbnail_link),
+                'src' => url('/' . $image->thumbnail_link),
                 'original' => url($image->link),
                 'width' => $dims[0],
                 'height' => $dims[1],
@@ -154,8 +159,8 @@ class GalleryController extends Controller
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
         GalleryImage::query()->where('gallery_id', $gallery->id)->get()->each(function ($image) {
-            $imagePath = storage_path('app/public/'.$image->link);
-            $imageThumbnailPath = storage_path('app/public/'.$image->thumbnail_link);
+            $imagePath = storage_path('app/public/' . $image->link);
+            $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
 
             if (file_exists($imagePath)) {
                 unlink($imagePath);
@@ -181,7 +186,7 @@ class GalleryController extends Controller
             $image = GalleryImage::query()->where('uuid', $imageUuid)->firstOrFail();
 
             // $imagePath = storage_path('app/public/' . $image->link);
-            $imageThumbnailPath = storage_path('app/public/'.$image->thumbnail_link);
+            $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
 
             /*if (file_exists($imagePath)) {
                 unlink($imagePath);
