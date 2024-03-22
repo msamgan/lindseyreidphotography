@@ -15,7 +15,6 @@ export default function GalleryCreate({ auth }) {
 
     const submit = (e) => {
         e.preventDefault()
-        console.log(data)
         post(route("admin.gallery.store"))
     }
 
