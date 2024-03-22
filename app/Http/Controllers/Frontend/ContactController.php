@@ -23,7 +23,7 @@ class ContactController extends Controller
         if ($request->has('email')) {
             Mail::to([
                 'photo@lindseybreid.com',
-                'photographybylbr@gmail.com'
+                'photographybylbr@gmail.com',
             ])->send(new \App\Mail\Lead($request->only([
                 'name',
                 'email',

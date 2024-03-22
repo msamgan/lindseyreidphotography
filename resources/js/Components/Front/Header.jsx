@@ -30,7 +30,7 @@ export default function Header() {
                                     href={menuItem.name}
                                     className={
                                         route().current() === menuItem.label.toLowerCase()
-                                            ? "flex items-center px-4 -mb-1 border-b-2 border-transparent sunydale border-black"
+                                            ? "flex items-center px-4 -mb-1 border-b-2 border-transparent sunydale text-blue-700"
                                             : "flex items-center px-4 -mb-1 border-b-2 border-transparent sunydale"
                                     }
                                 >
