@@ -12,6 +12,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
 
+        {{--link favicon--}}
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+
         <!-- Scripts -->
         @routes
         @viteReactRefresh
