@@ -3,7 +3,9 @@ import { useState } from "react"
 
 export default function GalleryForm({ data, setData, isPublic = true }) {
     const [isPasswordVisible, setIsPasswordVisible] = useState(isPublic ? "hidden" : "")
-    const [isDownloadDurationVisible, setIsDownloadDurationVisible] = useState(data.can_download ? "" : "hidden")
+    const [isDownloadDurationVisible, setIsDownloadDurationVisible] = useState(
+        data.can_download ? "" : "hidden"
+    )
 
     return (
         <section className="p-6 bg-gray-100 text-gray-900">

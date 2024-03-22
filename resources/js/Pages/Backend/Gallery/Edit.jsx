@@ -17,9 +17,11 @@ export default function GalleryCreate({ auth, gallery }) {
 
     const submit = (e) => {
         e.preventDefault()
-        post(route("admin.gallery.update", {
-            gallery: gallery.uuid
-        }))
+        post(
+            route("admin.gallery.update", {
+                gallery: gallery.uuid
+            })
+        )
     }
 
     return (
@@ -30,9 +32,13 @@ export default function GalleryCreate({ auth, gallery }) {
             <Head title="Create Gallery" />
             <div className="py-12">
                 <div className="container mx-auto">
-                    <form noValidate="" action="" method="POST"
-                          onSubmit={submit}
-                          className="container flex flex-col mx-auto space-y-12">
+                    <form
+                        noValidate=""
+                        action=""
+                        method="POST"
+                        onSubmit={submit}
+                        className="container flex flex-col mx-auto space-y-12"
+                    >
                         <GalleryForm data={data} setData={setData} isPublic={gallery.is_public} />
                         <div className="col-span-full ml-6">
                             <PrimaryButton

@@ -27,9 +27,13 @@ export default function GalleryCreate({ auth }) {
             <Head title="Create Gallery" />
             <div className="py-12">
                 <div className="container mx-auto">
-                    <form noValidate="" action="" method="POST"
-                          onSubmit={submit}
-                          className="container flex flex-col mx-auto space-y-12">
+                    <form
+                        noValidate=""
+                        action=""
+                        method="POST"
+                        onSubmit={submit}
+                        className="container flex flex-col mx-auto space-y-12"
+                    >
                         <GalleryForm data={data} setData={setData} />
                         <div className="col-span-full ml-6">
                             <PrimaryButton

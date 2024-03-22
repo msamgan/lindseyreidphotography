@@ -13,5 +13,6 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery/all', [GalleryController::class, 'allGalleries'])->name('gallery.all'); // json url
 Route::get('/gallery/view', [GalleryController::class, 'galleryView'])->name('gallery.view');
 Route::get('/gallery/images', [GalleryController::class, 'galleryImages'])->name('gallery.images');
+Route::post('/gallery/password-check', [GalleryController::class, 'galleryPassword'])->name('gallery.password-check');
 
 Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');

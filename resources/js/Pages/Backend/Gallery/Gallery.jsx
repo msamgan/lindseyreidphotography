@@ -27,9 +27,7 @@ export default function Gallery({ auth }) {
                 <div className="container mx-auto grid grid-cols-3 gap-1">
                     {galleries.length > 0 &&
                         galleries.map((gallery, index) => (
-                            <GalleryCard
-                                key={index}
-                                gallery={gallery} getGalleries={getGalleries} />
+                            <GalleryCard key={index} gallery={gallery} getGalleries={getGalleries} />
                         ))}
                 </div>
             </div>

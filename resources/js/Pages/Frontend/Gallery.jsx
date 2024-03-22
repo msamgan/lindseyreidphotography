@@ -23,16 +23,16 @@ export default function Gallery() {
         <FrontLayout title={"Gallery"}>
             <section className="py-6 bg-gray-100">
                 <div className="container flex flex-col justify-center p-4 mx-auto">
-                    {
-                        loading ? <Loader /> : <div className="container mx-auto grid grid-cols-3 gap-1">
+                    {loading ? (
+                        <Loader />
+                    ) : (
+                        <div className="container mx-auto grid grid-cols-3 gap-1">
                             {galleries.length > 0 &&
                                 galleries.map((gallery, index) => (
-                                    <GalleryCard
-                                        key={index}
-                                        gallery={gallery} />
+                                    <GalleryCard key={index} gallery={gallery} />
                                 ))}
                         </div>
-                    }
+                    )}
                 </div>
             </section>
         </FrontLayout>

@@ -6,12 +6,14 @@ import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
 import Zoom from "yet-another-react-lightbox/plugins/zoom"
 import Loader from "@/Components/Loader.jsx"
 import "yet-another-react-lightbox/styles.css"
+import Download from "yet-another-react-lightbox/plugins/download"
 
 export default function ViewGallery({ gallery }) {
     const [images, setImages] = useState([])
     const [loading, setLoading] = useState(false)
     const [lightBoxImages, setLightBoxImages] = useState([])
     const [index, setIndex] = useState(-1)
+    const [plugins, setPlugins] = useState([Fullscreen, Zoom])
 
     const getImages = () => {
         axios(
@@ -26,16 +28,19 @@ export default function ViewGallery({ gallery }) {
                     return {
                         src: image.original,
                         width: image.width,
-                        height: image.height
+                        height: image.height,
+                        downloadUrl: image.original
                     }
                 })
             )
+
+            if (response.data.gallery.can_download) {
+                setPlugins([...plugins, Download])
+            }
         })
     }
 
     const handleClickedImage = (index, image) => {
-        console.log(image)
-        console.log(index)
         setIndex(index)
     }
 
@@ -44,31 +49,40 @@ export default function ViewGallery({ gallery }) {
         getImages()
     }, [])
 
-    return <FrontLayout title={gallery.name}>
-        <section className="bg-white text-gray-800">
-            <div className="container px-4 mx-auto">
-                <section className="py-6">
-                    {
-                        loading ? <Loader /> : <>
-                            <Gallery
-                                images={images}
-                                enableImageSelection={false}
-                                rowHeight={400}
-                                margin={5}
-                                onClick={handleClickedImage}
-                            />
+    return (
+        <FrontLayout title={gallery.name}>
+            <section className="bg-white text-gray-800">
+                <div className="container px-4 mx-auto">
+                    <div className="py-6">
+                        <h1 className="text-3xl font-bold sunydale">
+                            {gallery.name} | {images.length}
+                        </h1>
+                    </div>
+                    <section className="py-6">
+                        {loading ? (
+                            <Loader />
+                        ) : (
+                            <>
+                                <Gallery
+                                    images={images}
+                                    enableImageSelection={false}
+                                    rowHeight={400}
+                                    margin={5}
+                                    onClick={handleClickedImage}
+                                />
 
-                            <Lightbox
-                                slides={lightBoxImages}
-                                plugins={[Fullscreen, Zoom]}
-                                open={index >= 0}
-                                index={index}
-                                close={() => setIndex(-1)}
-                            />
-                        </>
-                    }
-                </section>
-            </div>
-        </section>
-    </FrontLayout>
+                                <Lightbox
+                                    slides={lightBoxImages}
+                                    plugins={plugins}
+                                    open={index >= 0}
+                                    index={index}
+                                    close={() => setIndex(-1)}
+                                />
+                            </>
+                        )}
+                    </section>
+                </div>
+            </section>
+        </FrontLayout>
+    )
 }
