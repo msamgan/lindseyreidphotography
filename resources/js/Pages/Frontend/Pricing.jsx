@@ -1,11 +1,10 @@
 import FrontLayout from "@/Layouts/FrontLayout.jsx"
-import { useEffect } from "react"
 import HyphenSvg from "@/Components/svgs/hyphenSvg.jsx"
 
 export default function Pricing({ primaryPackages, secondaryPackages }) {
     return (
         <FrontLayout title={"Pricing"}>
-            <section className="bg-white text-gray-800">
+            <section className="bg-white text-gray-800 mt-20">
                 <div className="container px-4 mx-auto">
                     <div className="max-w-2xl mx-auto mb-16 text-center">
                         <h2 className="text-4xl font-bold lg:text-5xl">Wedding & Portraits</h2>

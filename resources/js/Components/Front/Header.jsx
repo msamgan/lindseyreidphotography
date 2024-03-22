@@ -5,15 +5,15 @@ export default function Header() {
         return [
             {
                 label: "Gallery",
-                name: "/gallery"
-            },
-            {
-                label: "Contact",
-                name: "/contact"
+                name: route("gallery")
             },
             {
                 label: "Pricing",
-                name: "/pricing"
+                name: route("pricing")
+            },
+            {
+                label: "Contact",
+                name: route("contact")
             }
         ]
     }
@@ -29,7 +29,9 @@ export default function Header() {
                                     rel="noopener noreferrer"
                                     href={menuItem.name}
                                     className={
-                                        "flex items-center px-4 -mb-1 border-b-2 border-transparent sunydale"
+                                        route().current() === menuItem.label.toLowerCase()
+                                            ? "flex items-center px-4 -mb-1 border-b-2 border-transparent sunydale border-black"
+                                            : "flex items-center px-4 -mb-1 border-b-2 border-transparent sunydale"
                                     }
                                 >
                                     {menuItem.label}
