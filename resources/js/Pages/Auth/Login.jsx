@@ -32,11 +32,7 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <img
-                className="mx-auto"
-                src={"/img/lr_trans.png"}
-                alt="Workflow"
-            />
+            <img className="mx-auto" src={"/img/lr_trans.png"} alt="Workflow" />
 
             <form onSubmit={submit}>
                 <div>

@@ -4,11 +4,7 @@ export default function SubMenu() {
     return (
         <>
             <li className="flex">
-                <NavLink
-                    href={route("profile.edit")}
-                    className={""}
-                    active={route().current("profile.edit")}
-                >
+                <NavLink href={route("profile.edit")} className={""} active={route().current("profile.edit")}>
                     Profile
                 </NavLink>
             </li>

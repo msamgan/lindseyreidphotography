@@ -39,11 +39,7 @@ export default function AuthenticatedLayout({ user, header, subMenu, children })
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <img
-                                        className="block h-20 w-auto"
-                                        src="/img/lr_white.PNG"
-                                        alt="Workflow"
-                                    />
+                                    <img className="block h-20 w-auto" src="/img/lr_white.PNG" alt="Workflow" />
                                 </Link>
                             </div>
 
@@ -90,6 +86,7 @@ export default function AuthenticatedLayout({ user, header, subMenu, children })
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
+                                        <Dropdown.Link href={"/"}>Site</Dropdown.Link>
                                         <Dropdown.Link href={route("profile.edit")}>Profile</Dropdown.Link>
                                         <hr />
                                         <Dropdown.Link href={route("logout")} method="post" as="button">

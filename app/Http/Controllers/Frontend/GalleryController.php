@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -106,5 +107,10 @@ class GalleryController extends Controller
             'status' => false,
             'message' => 'Invalid password.',
         ]);
+    }
+
+    public function galleryPortfolio(): ?Model
+    {
+        return Gallery::query()->where('uuid', Gallery::PORTFOLIO_UUID)->with('images')->first();
     }
 }

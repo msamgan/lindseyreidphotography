@@ -2,6 +2,11 @@ export default function Introduction({}) {
     return (
         <div className="p-6 sm:p-12 text-gray-800 max-w-7xl mx-auto">
             <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
+                <img
+                    src="/img/lindsey.PNG"
+                    alt="photographer"
+                    className="w-full h-96 object-cover rounded-2xl mr-8"
+                />
                 <div className="flex flex-col">
                     <p className="text-black mb-6 text-2xl">
                         Hello, and thank you for visiting my site. I love weddings, and photographing them is
