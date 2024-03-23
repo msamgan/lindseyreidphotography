@@ -51,4 +51,9 @@ class PricingController extends Controller
             return response()->json(['message' => 'An error occurred while updating package name'], 500);
         }
     }
+
+    public function packageCount(): int
+    {
+        return Package::query()->count();
+    }
 }

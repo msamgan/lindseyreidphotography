@@ -22,4 +22,8 @@ Route::middleware(['auth', 'verified'])->prefix('backend/gallery')->group(functi
     Route::get('images/', [GalleryController::class, 'galleryImages'])->name('admin.gallery.images');
     Route::put('cover/update/', [GalleryController::class, 'updateGalleryCover'])->name('admin.gallery.image.cover-update');
     Route::delete('image/delete/', [GalleryController::class, 'deleteGalleryImage'])->name('admin.gallery.image.delete');
+
+
+    Route::get('count', [GalleryController::class, 'galleryCount'])->name('admin.gallery.count');
+    Route::get('image/count', [GalleryController::class, 'imageCount'])->name('admin.gallery.image.count');
 });

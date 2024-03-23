@@ -8,4 +8,6 @@ Route::middleware(['auth', 'verified'])->prefix('backend/package')->group(functi
     Route::get('/pricing/packages', [PricingController::class, 'packages'])->name('admin.pricing.packages');
     Route::post('/update/pricing', [PricingController::class, 'updatePricing'])->name('admin.pricing.update');
     Route::post('/update/name', [PricingController::class, 'updateName'])->name('admin.name.update');
+
+    Route::get('/count', [PricingController::class, 'packageCount'])->name('admin.packages.count');
 });
