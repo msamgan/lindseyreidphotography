@@ -15,3 +15,10 @@ export const dateToNumberOfDays = (fromData, toDate) => {
 
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 }
+
+/**
+ * @returns {string}  - returns the uuid of the portfolio gallery
+ */
+export const getPortfolioUuId = () => {
+    return "30691678-8fe9-4b5b-b866-667595344824"
+}

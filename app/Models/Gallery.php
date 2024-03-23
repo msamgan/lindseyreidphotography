@@ -13,6 +13,8 @@ class Gallery extends Model
 {
     use HasFactory;
 
+    public const PORTFOLIO_UUID = '30691678-8fe9-4b5b-b866-667595344824';
+
     protected $hidden = ['password', 'id', 'updated_at'];
 
     protected $fillable = ['uuid', 'name', 'password', 'cover', 'can_download', 'download_duration', 'is_public'];

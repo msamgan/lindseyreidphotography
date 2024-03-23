@@ -20,7 +20,7 @@ const mainMenu = [
 ]
 
 export default function AuthenticatedLayout({ user, header, subMenu, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
+    // const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
     const [updatedMenu, setUpdatedMenu] = useState([])
 
     useEffect(() => {
