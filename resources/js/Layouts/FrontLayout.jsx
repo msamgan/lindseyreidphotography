@@ -12,8 +12,12 @@ export default function FrontLayout({ auth, children, title }) {
                 <div className={"max-w-7xl mx-auto text-center"}>
                     {/*<img src={"/img/lr_trans.png"} alt={appName} className={"mx-auto h-36"} />*/}
                     <Link href={"/"}>
-                        <h1 className={"text-4xl dancing-script-heading mt-20 mb-20"}>{appName}</h1>
+                        <h1 className={"text-8xl dancing-script-heading mt-20 mb-2"}>{appName}</h1>
+                        <span className={"text-4xl bhagnes mt-3 font-bold"}>
+                            Where love meets light
+                        </span>
                     </Link>
+                    <hr className={"mt-8"} />
                 </div>
                 <Header />
                 {children}

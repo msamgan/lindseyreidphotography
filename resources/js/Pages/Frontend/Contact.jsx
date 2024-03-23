@@ -28,8 +28,7 @@ export default function Contact() {
 
     return (
         <FrontLayout title={"Contact"}>
-            <div
-                className="container flex justify-between mx-auto md:justify-center md:space-x-8 mt-20 mb-20">
+            <div className="container flex justify-between mx-auto md:justify-center md:space-x-8 mt-20 mb-20">
                 <div className="">
                     <div className="space-y-2">
                         <h2 className="text-4xl font-bold leadi lg:text-5xl">Let's talk!</h2>

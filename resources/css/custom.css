@@ -1,1 +1,142 @@
-@font-face{font-family:Betterworks;src:url("/fonts/Betterworks.otf") format("opentype");font-weight:400;font-style:normal}@font-face{font-family:Sunydale;src:url("/fonts/Sunydale.otf") format("opentype");font-weight:400;font-style:normal}@font-face{font-family:Romantically;src:url("/fonts/Romantically.otf") format("opentype");font-weight:400;font-style:normal}@font-face{font-family:Quick;src:url("/fonts/Quick.otf") format("opentype");font-weight:400;font-style:normal}.dancing-script-heading{font-family:Romantically,cursive;font-optical-sizing:auto;font-weight:400;font-style:normal}.sunydale{font-family:Sunydale,sans-serif;font-weight:300;font-style:normal}button,h1,h2,h3,h4,h5,h6,label,li,p{font-family:Inconsolata,monospace;font-optical-sizing:auto;font-weight:< weight >;font-style:normal;font-variation-settings:"wdth" 100}.active{border-bottom:1px solid orange}.tooltip{@apply invisible absolute;}.has-tooltip:hover .tooltip{@apply visible z-50;}
+@font-face {
+    font-family: Betterworks;
+    src: url("/fonts/Betterworks.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Sunydale;
+    src: url("/fonts/Sunydale.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Romantically;
+    src: url("/fonts/Romantically.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Quick;
+    src: url("/fonts/Quick.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Cheque;
+    src: url("/fonts/Cheque.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: riotsquad;
+    src: url("/fonts/riotsquad.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: artisan;
+    src: url("/fonts/artisan.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: aerpthine;
+    src: url("/fonts/aerpthine.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: tom-Brother;
+    src: url("/fonts/tom-brother.ttf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: moriana;
+    src: url("/fonts/moriana.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: bhagnes;
+    src: url("/fonts/bhagnes.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+.dancing-script-heading {
+    /*font-family: Romantically, cursive;*/
+    /*font-family: "tom-Brother", cursive;*/
+    /*font-family: "moriana", cursive;*/
+    font-family: "aerpthine", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal
+}
+
+.sunydale {
+    font-family: Sunydale, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+.cheque {
+    font-family: Cheque, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+.riotsquad {
+    font-family: riotsquad, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+.artisan {
+    font-family: artisan, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+.aerpthine {
+    font-family: aerpthine, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+.bhagnes {
+    font-family: bhagnes, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+button, h1, h2, h3, h4, h5, h6, label, li, p {
+    font-family: Inconsolata, monospace;
+    font-optical-sizing: auto;
+    font-weight: < weight >;
+    font-style: normal;
+    font-variation-settings: "wdth" 100
+}
+
+.active {
+    border-bottom: 1px solid orange
+}
+
+.tooltip {
+    @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+    @apply visible z-50;
+}

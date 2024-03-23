@@ -19,9 +19,9 @@ export default function Header() {
     }
 
     return (
-        <header className="bg-white text-gray-800 mt-12 mb-8">
+        <header className="bg-white text-gray-800 mt-4 mb-8">
             <div className="container flex justify-between h-16 mx-auto md:justify-center md:space-x-8">
-                <ul className="items-stretch hidden space-x-28 md:flex text-2xl">
+                <ul className="items-stretch hidden space-x-28 md:flex text-3xl">
                     {menu().map((menuItem, index) => {
                         return (
                             <li className="flex cursor-pointer hover:text-grey-900" key={index}>
@@ -57,6 +57,7 @@ export default function Header() {
                     </svg>
                 </button>
             </div>
+            <hr className={'mt-4'} />
         </header>
     )
 }

@@ -5,16 +5,16 @@ export default function Introduction({}) {
                 <img
                     src="/img/lindsey.PNG"
                     alt="photographer"
-                    className="w-full h-96 object-cover rounded-2xl mr-8"
+                    className="w-56 h-56 object-cover rounded-2xl mr-4"
                 />
                 <div className="flex flex-col">
-                    <p className="text-black mb-6 text-2xl">
+                    <p className="text-black mb-6 text-xl">
                         Hello, and thank you for visiting my site. I love weddings, and photographing them is
                         something I enjoy immensely. Those little romantic moments, the looks, the playfulness
                         and the friendship, are all an important part of your day.{" "}
                     </p>
 
-                    <p className="text-black mb-2 text-2xl">
+                    <p className="text-black mb-2 text-xl">
                         {" "}
                         I look forward to talking to you about how to best preserve them. I also welcome
                         inquires about engagement, family portraits, individual portraiture, and destination

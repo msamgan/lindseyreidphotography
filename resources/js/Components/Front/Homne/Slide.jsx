@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "@inertiajs/react"
 
 export default function Slider() {
     const [sliderGallery, setSliderGallery] = useState({})
@@ -27,7 +28,10 @@ export default function Slider() {
             <img
                 src={image.thumbnail_link}
                 alt={"image" + index}
-                className={"object-cover object-center bg-gray-500 h-64"}
+                className={"object-cover object-center bg-gray-500"}
+                style={{
+                    height: "750px"
+                }}
             />
         )
     }
@@ -38,9 +42,17 @@ export default function Slider() {
                 {galleryImages.length > 0 &&
                     galleryImages.map((image, index) => {
                         return (
-                            <li key={index}>
-                                <SliderImage image={image} index={index} />
-                            </li>
+                            <Link
+                                key={index}
+                                href={route("gallery.view", {
+                                    gallery: sliderGallery.uuid
+                                })}
+                                className="cursor-pointer"
+                            >
+                                <li key={""}>
+                                    <SliderImage image={image} index={index} />
+                                </li>
+                            </Link>
                         )
                     })}
             </ul>
@@ -51,9 +63,17 @@ export default function Slider() {
                 {galleryImages.length > 0 &&
                     galleryImages.map((image, index) => {
                         return (
-                            <li key={index}>
-                                <SliderImage image={image} index={index} />
-                            </li>
+                            <Link
+                                key={index}
+                                href={route("gallery.view", {
+                                    gallery: sliderGallery.uuid
+                                })}
+                                className="cursor-pointer"
+                            >
+                                <li key={index}>
+                                    <SliderImage image={image} index={index} />
+                                </li>
+                            </Link>
                         )
                     })}
             </ul>
