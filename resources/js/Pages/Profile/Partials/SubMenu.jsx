@@ -6,7 +6,7 @@ export default function SubMenu() {
             <li className="flex">
                 <NavLink
                     href={route("profile.edit")}
-                    className={"text-orange-600"}
+                    className={""}
                     active={route().current("profile.edit")}
                 >
                     Profile
@@ -15,21 +15,21 @@ export default function SubMenu() {
             <li className="flex">
                 <NavLink
                     href={route("profile.settings")}
-                    className={"text-orange-600"}
+                    className={""}
                     active={route().current("profile.settings")}
                 >
                     Settings
                 </NavLink>
             </li>
-            <li className="flex">
+            {/*<li className="flex">
                 <NavLink
                     href={route("profile.danger")}
-                    className={"text-orange-600"}
+                    className={""}
                     active={route().current("profile.danger")}
                 >
                     Danger Zone
                 </NavLink>
-            </li>
+            </li>*/}
         </>
     )
 }

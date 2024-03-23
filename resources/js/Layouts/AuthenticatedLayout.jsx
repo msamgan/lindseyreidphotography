@@ -1,29 +1,35 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Dropdown from "@/Components/Dropdown"
-import NavLink from "@/Components/NavLink"
 import PrimaryButton from "@/Components/PrimaryButton.jsx"
 import { Link } from "@inertiajs/react"
+import MainMenuNavLink from "@/Components/MainMenuNavLink.jsx"
 
 const mainMenu = [
     {
         name: "Dashboard",
-        href: route("dashboard"),
-        current: route().current("dashboard")
+        href: route("dashboard")
     },
     {
         name: "Pricing",
-        href: route("admin.pricing"),
-        current: route().current("admin.pricing")
+        href: route("admin.pricing")
     },
     {
         name: "Gallery",
-        href: route("admin.gallery"),
-        current: route().current("admin.gallery")
+        href: route("admin.gallery")
     }
 ]
 
 export default function AuthenticatedLayout({ user, header, subMenu, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
+    const [updatedMenu, setUpdatedMenu] = useState([])
+
+    useEffect(() => {
+        mainMenu.forEach((item) => {
+            item.active = item.href === window.location.href
+        })
+
+        setUpdatedMenu(mainMenu)
+    }, [])
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -31,17 +37,21 @@ export default function AuthenticatedLayout({ user, header, subMenu, children })
                 <div className="container mx-auto">
                     <div className="flex justify-between h-16">
                         <div className="flex">
-                            {/*<div className="shrink-0 flex items-center">
+                            <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="invert block h-9 w-auto fill-current text-gray-800" />
+                                    <img
+                                        className="block h-20 w-auto"
+                                        src="/img/lr_white.PNG"
+                                        alt="Workflow"
+                                    />
                                 </Link>
-                            </div>*/}
+                            </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                {mainMenu.map((item) => (
-                                    <NavLink key={item.name} href={item.href} active={item.current}>
+                                {updatedMenu.map((item) => (
+                                    <MainMenuNavLink key={item.name} href={item.href} active={item.active}>
                                         {item.name}
-                                    </NavLink>
+                                    </MainMenuNavLink>
                                 ))}
                             </div>
                         </div>
