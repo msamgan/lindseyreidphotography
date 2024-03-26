@@ -75,6 +75,24 @@
     font-style: normal
 }
 
+@font-face {
+    font-family: geometrica;
+    src: url("/fonts/geometrica.otf") format("opentype");
+    font-style: normal
+}
+
+@font-face {
+    font-family: south-dakota;
+    src: url("/fonts/south-dakota.ttf") format("opentype");
+    font-style: normal
+}
+
+@font-face {
+    font-family: organique;
+    src: url("/fonts/organique.otf") format("opentype");
+    font-style: normal
+}
+
 .dancing-script-heading {
     /*font-family: Romantically, cursive;*/
     /*font-family: "tom-Brother", cursive;*/
@@ -117,6 +135,24 @@
 
 .bhagnes {
     font-family: bhagnes, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+.geometrica {
+    font-family: geometrica, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+.south-dakota {
+    font-family: south-dakota, sans-serif;
+    font-weight: 300;
+    font-style: normal
+}
+
+.organique {
+    font-family: organique, sans-serif;
     font-weight: 300;
     font-style: normal
 }

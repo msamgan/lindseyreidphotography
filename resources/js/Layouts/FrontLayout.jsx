@@ -1,23 +1,37 @@
 import { Head, Link } from "@inertiajs/react"
 import Header from "@/Components/Front/Header.jsx"
 import Footer from "@/Components/Front/Footer.jsx"
+import { useEffect } from "react"
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel"
 
 export default function FrontLayout({ auth, children, title }) {
+
+
+    useEffect(() => {
+        console.log(route().current())
+    }, [])
+
     return (
         <>
             <Head title={title} />
             <div className={""}>
-                <div className={"max-w-7xl mx-auto text-center"}>
-                    {/*<img src={"/img/lr_trans.png"} alt={appName} className={"mx-auto h-36"} />*/}
-                    <Link href={"/"}>
-                        <h1 className={"text-8xl dancing-script-heading mt-20 mb-2"}>{appName}</h1>
-                        <span className={"text-4xl bhagnes mt-3 font-bold"}>
-                            Where love meets light
-                        </span>
-                    </Link>
-                    <hr className={"mt-8"} />
+                <div className={" mx-auto text-center"}>
+                    {
+                        route().current() === "welcome"
+                            ? <>
+                                <Link href={"/"}>
+                                    <h1 className={"text-8xl dancing-script-heading mt-20 mb-4"}>{appName}</h1>
+                                    <span className={"text-6xl organique mt-3"}>
+                                        Where love meets light
+                                    </span>
+                                </Link>
+                                <hr className={"mt-8"} />
+                            </>
+                            : <Link href={"/"}><img src={"/img/header.png"} alt={appName}
+                                                    className={"mx-auto w-full h-full"} /></Link>
+                    }
+
                 </div>
                 <Header />
                 {children}

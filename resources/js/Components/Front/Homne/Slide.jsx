@@ -30,7 +30,7 @@ export default function Slider() {
                 alt={"image" + index}
                 className={"object-cover object-center bg-gray-500"}
                 style={{
-                    height: "750px"
+                    height: "740px"
                 }}
             />
         )
