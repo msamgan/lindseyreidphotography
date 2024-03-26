@@ -26,7 +26,7 @@ export default function Slider() {
     const SliderImage = ({ image, index }) => {
         return (
             <img
-                src={image.thumbnail_link}
+                src={"/storage/" + image.thumbnail_link}
                 alt={"image" + index}
                 className={"object-cover object-center bg-gray-500"}
                 style={{
