@@ -19,8 +19,7 @@ class GalleryController extends Controller
 {
     public function __construct(
         private readonly GalleryRepository $galleryRepository
-    )
-    {
+    ) {
         //
     }
 
@@ -34,7 +33,7 @@ class GalleryController extends Controller
         $galleryUuid = $request->get('gallery');
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
-        if (!$gallery) {
+        if (! $gallery) {
             abort(404, 'Gallery not found');
         }
 
@@ -58,8 +57,8 @@ class GalleryController extends Controller
     {
         $image = $request->file('file');
         $galleryUuid = $request->get('gallery');
-        $imageName = Str::slug($this->galleryRepository->getImageNameWithExtension($image)) . '-' . time();
-        $fileName = $imageName . '.' . $image->getClientOriginalExtension();
+        $imageName = Str::slug($this->galleryRepository->getImageNameWithExtension($image)).'-'.time();
+        $fileName = $imageName.'.'.$image->getClientOriginalExtension();
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
         $dirName = $gallery->uuid;
@@ -70,7 +69,7 @@ class GalleryController extends Controller
         // UploadImageToS3::dispatch($dirName, $fileName);
 
         return response()->json([
-            'image' => $dirName . '/' . $fileName,
+            'image' => $dirName.'/'.$fileName,
             'thumbnail' => $thumbnailPath,
         ]);
     }
@@ -131,11 +130,11 @@ class GalleryController extends Controller
 
         $processedImages = [];
         foreach ($gallery->images as $image) {
-            $dims = getimagesize(storage_path('app/public/' . $image->thumbnail_link));
+            $dims = getimagesize(storage_path('app/public/'.$image->thumbnail_link));
             $processedImages[] = [
                 'uuid' => $image->uuid,
-                'src' => url('/' . $image->thumbnail_link),
-                'original' => url('https://lindsey-reid-photography.s3.amazonaws.com/' . $image->link),
+                'src' => url('/'.$image->thumbnail_link),
+                'original' => url('https://lindsey-reid-photography.s3.amazonaws.com/'.$image->link),
                 'width' => $dims[0],
                 'height' => $dims[1],
             ];
@@ -166,7 +165,7 @@ class GalleryController extends Controller
         $galleryUuid = $request->get('gallery');
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
-        $this->galleryRepository->deleteThumbnailDir(storage_path('app/public/thumbnails/' . $gallery->uuid));
+        $this->galleryRepository->deleteThumbnailDir(storage_path('app/public/thumbnails/'.$gallery->uuid));
         GalleryImage::query()->where('gallery_id', $gallery->id)->delete();
 
         Storage::disk('s3')->deleteDirectory($gallery->uuid);
@@ -183,7 +182,7 @@ class GalleryController extends Controller
         foreach ($imagesUuid as $imageUuid) {
             $image = GalleryImage::query()->where('uuid', $imageUuid)->firstOrFail();
 
-            $imageThumbnailPath = storage_path('app/public/' . $image->thumbnail_link);
+            $imageThumbnailPath = storage_path('app/public/'.$image->thumbnail_link);
 
             if (file_exists($imageThumbnailPath)) {
                 unlink($imageThumbnailPath);

@@ -19,9 +19,12 @@ export default function Header() {
     }
 
     return (
-        <header className="bg-white text-gray-800 mb-8" style={{
-            marginTop: route().current() === "welcome" ? "12px" : "-85px"
-        }}>
+        <header
+            className="bg-white text-gray-800 mb-8"
+            style={{
+                marginTop: route().current() === "welcome" ? "12px" : "-85px"
+            }}
+        >
             <div className="container flex justify-between h-16 mx-auto md:justify-center md:space-x-8">
                 <ul className="items-stretch hidden space-x-28 md:flex text-3xl">
                     {menu().map((menuItem, index) => {

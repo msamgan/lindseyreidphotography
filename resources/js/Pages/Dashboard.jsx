@@ -8,31 +8,34 @@ export default function Dashboard({ auth }) {
     const [packageCount, setPackageCount] = useState(0)
 
     const getGalleryCount = () => {
-        axios.get(route("admin.gallery.count"))
-            .then(response => {
+        axios
+            .get(route("admin.gallery.count"))
+            .then((response) => {
                 setGalleryCount(response.data)
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(error)
             })
     }
 
     const getImageCount = () => {
-        axios.get(route("admin.gallery.image.count"))
-            .then(response => {
+        axios
+            .get(route("admin.gallery.image.count"))
+            .then((response) => {
                 setImageCount(response.data)
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(error)
             })
     }
 
     const getPackageCount = () => {
-        axios.get(route("admin.packages.count"))
-            .then(response => {
+        axios
+            .get(route("admin.packages.count"))
+            .then((response) => {
                 setPackageCount(response.data)
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(error)
             })
     }
@@ -56,8 +59,9 @@ export default function Dashboard({ auth }) {
                         <div className="p-6 bg-white border-b border-gray-200">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h1 className="text-2xl font-semibold text-gray-800">Welcome
-                                        back, {auth.user.name}!</h1>
+                                    <h1 className="text-2xl font-semibold text-gray-800">
+                                        Welcome back, {auth.user.name}!
+                                    </h1>
                                     <p className="text-gray-500">Here's a quick overview of your account.</p>
                                 </div>
                             </div>
