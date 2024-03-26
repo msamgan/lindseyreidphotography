@@ -38,7 +38,7 @@ class GalleryController extends Controller
             $dims = getimagesize(storage_path('app/public/'.$image->thumbnail_link));
             $processedImages[] = [
                 'uuid' => $image->uuid,
-                'src' => url('/'.$image->thumbnail_link),
+                'src' => url('/storage/'.$image->thumbnail_link),
                 'original' => url('https://lindsey-reid-photography.s3.amazonaws.com/'.$image->link),
                 'width' => $dims[0],
                 'height' => $dims[1],
