@@ -3,7 +3,7 @@ export default function Introduction({}) {
         <div className="p-6 sm:p-12 text-gray-800 max-w-7xl mx-auto">
             <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
                 <img
-                    src="/img/lindsey.PNG"
+                    src="/img/lindsey.png"
                     alt="photographer"
                     className="w-56 h-56 object-cover rounded-2xl mr-4"
                 />
