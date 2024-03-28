@@ -45,7 +45,7 @@ export default function GalleryCreate({ auth, gallery }) {
                                 type="submit"
                                 className="flex-shrink-0 hover:bg-white hover:text-black hover:border-black text-lg text-white py-1 px-2 rounded"
                             >
-                                Create Gallery
+                                Update Gallery
                             </PrimaryButton>
                         </div>
                     </form>
