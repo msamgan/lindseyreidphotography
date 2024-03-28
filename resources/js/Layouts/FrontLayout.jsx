@@ -18,7 +18,9 @@ export default function FrontLayout({ auth, children, title }) {
                     {route().current() === "welcome" ? (
                         <>
                             <Link href={"/"}>
-                                <h1 className={"text-8xl dancing-script-heading mt-20 mb-4"}>{"Lindsey Reid Photography"}</h1>
+                                <h1 className={"text-8xl dancing-script-heading mt-20 mb-4"}>
+                                    {"Lindsey Reid Photography"}
+                                </h1>
                                 <span className={"text-6xl organique mt-3"}>Where love meets light</span>
                             </Link>
                             <hr className={"mt-8"} />
