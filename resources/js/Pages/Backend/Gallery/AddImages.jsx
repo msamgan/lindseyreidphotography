@@ -31,7 +31,7 @@ export default function AddImages({ auth, gallery }) {
                         process: {
                             headers: {},
                             onload: (response) => {
-                                axios
+                                /*axios
                                     .post(
                                         route("admin.gallery.image.store", {
                                             gallery_uuid: gallery.uuid
@@ -41,7 +41,7 @@ export default function AddImages({ auth, gallery }) {
                                             thumbnail: JSON.parse(response).thumbnail
                                         }
                                     )
-                                    .then(() => {})
+                                    .then(() => {})*/
                             },
                             onerror: (response) => {
                                 console.log(response)
