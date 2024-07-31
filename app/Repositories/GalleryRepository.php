@@ -4,11 +4,11 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Intervention\Image\Drivers\Imagick\Driver;
-use Intervention\Image\ImageManager;
 
 class GalleryRepository
 {
+    public const S3_LINK = 'https://lindsey-reid-photography.s3.amazonaws.com/';
+
     public function getImageNameWithExtension($image): string
     {
         return explode('.', $image->getClientOriginalName())[0];

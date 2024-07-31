@@ -85,7 +85,9 @@ export default function GalleryForm({ data, setData, isPublic = true }) {
                                 name={"download"}
                                 onChange={(e) => {
                                     setData("can_download", e.target.checked)
-                                    setIsDownloadDurationVisible(isDownloadDurationVisible === "" ? "hidden" : "")
+                                    setIsDownloadDurationVisible(
+                                        isDownloadDurationVisible === "" ? "hidden" : ""
+                                    )
                                 }}
                                 className="rounded-md focus:ring focus:ring-opacity-75 focus:ring-black border-gray-300 text-gray-900"
                             />

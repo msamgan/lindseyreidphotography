@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "filepond": "^4.30.6",
+        "filepond-plugin-image-transform": "^3.8.7",
         "react-filepond": "^7.1.2",
         "react-grid-gallery": "^1.0.1-alpha.0",
         "sweetalert2": "^11.10.6",

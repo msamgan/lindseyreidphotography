@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Intervention\Image\ImageManager;
 
 class UploadImageToS3 implements ShouldQueue
 {
@@ -28,18 +29,27 @@ class UploadImageToS3 implements ShouldQueue
      */
     public function handle(): void
     {
+        $imagePath = storage_path('app/'.$this->dirName.'/'.$this->fileName);
+
         $image = new UploadedFile(
-            storage_path('app/public/'.$this->dirName.'/'.$this->fileName),
+            $imagePath,
             $this->fileName
         );
 
         $image->storeAs($this->dirName, $this->fileName, 's3');
 
-        unlink(storage_path('app/public/'.$this->dirName.'/'.$this->fileName));
+        if (! is_dir(storage_path('app/'.$this->dirName.'/thumbnail'))) {
+            mkdir(storage_path('app/'.$this->dirName.'/thumbnail'));
+        }
+
+        $image = ImageManager::imagick()->read($imagePath);
+        $image->resize(600)->save(storage_path('app/'.$this->dirName.'/thumbnail/'.$this->fileName));
+
+        unlink($imagePath);
 
         // if you want to delete the directory, after all, the files are uploaded and the directory is empty
-        if (count(glob(storage_path('app/public/'.$this->dirName.'/*'))) === 0) {
-            rmdir(storage_path('app/public/'.$this->dirName));
+        if (count(glob(storage_path('app/'.$this->dirName.'/*'))) === 0) {
+            rmdir(storage_path('app/'.$this->dirName));
         }
     }
 }

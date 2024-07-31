@@ -24,6 +24,8 @@ export default function AddImages({ auth, gallery }) {
                     onupdatefiles={setFiles}
                     allowMultiple={true}
                     maxParallelUploads={3}
+                    imageResizeTargetWidth={600}
+                    imageCropAspectRatio={1}
                     server={{
                         url: route("admin.image.store", {
                             gallery: gallery.uuid
@@ -34,7 +36,7 @@ export default function AddImages({ auth, gallery }) {
                                 /*axios
                                     .post(
                                         route("admin.gallery.image.store", {
-                                            gallery_uuid: gallery.uuid
+                                            gallery_uuid: gall  ery.uuid
                                         }),
                                         {
                                             image: JSON.parse(response).image,
