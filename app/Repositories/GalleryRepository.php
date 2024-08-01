@@ -43,6 +43,11 @@ class GalleryRepository
         return url(self::S3_LINK . $galleryUUid . '/' . $fileName);
     }
 
+    public static function getGalleryCoverLink($gallery): Application|string|UrlGenerator
+    {
+        return self::getImageThumbnailLink($gallery->uuid, $gallery->cover);
+    }
+
     public function getImageNameWithExtension($image): string
     {
         return explode('.', $image->getClientOriginalName())[0];
@@ -54,7 +59,7 @@ class GalleryRepository
         $password = $request->get('password') ? Hash::make($request->get('password')) : null;
         $canDownload = $request->get('can_download');
         $downloadDuration = $canDownload
-            ? (now()->addDays((int)$request->get('download_duration')))->format('Y-m-d H:i:s')
+            ? (now()->addDays((int) $request->get('download_duration')))->format('Y-m-d H:i:s')
             : null;
         $isPublic = $password === null;
 
@@ -66,7 +71,7 @@ class GalleryRepository
             'download_duration' => $downloadDuration,
         ];
 
-        if (!$galleryUuid) {
+        if (! $galleryUuid) {
             $galleryData['uuid'] = Str::uuid();
         }
 

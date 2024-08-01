@@ -30,6 +30,13 @@ class UploadImageToS3 implements ShouldQueue
     public function handle(): void
     {
         $imagePath = storage_path('app/' . $this->dirName . '/' . $this->fileName);
+        $imageSize = getimagesize($imagePath);
+
+        $width = $imageSize[0];
+        $height = $imageSize[1];
+
+        $newWidth = 600;
+        $newHeight = ($height / $width) * $newWidth;
 
         $image = new UploadedFile(
             $imagePath,
@@ -47,7 +54,7 @@ class UploadImageToS3 implements ShouldQueue
         }
 
         $image = ImageManager::imagick()->read($imagePath);
-        $image->resize(600)->save(storage_path('app/public/thumbnail/' . $this->dirName . '/' . $this->fileName));
+        $image->resize($newWidth, $newHeight)->save(storage_path('app/public/thumbnail/' . $this->dirName . '/' . $this->fileName));
 
         unlink($imagePath);
 

@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use App\Repositories\GalleryRepository;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -20,7 +19,7 @@ class GalleryController extends Controller
         return Inertia::render('Frontend/Gallery');
     }
 
-    public function allGalleries(): Collection|array
+    public function allGalleries(): Collection
     {
         return Gallery::query()->get();
     }
@@ -34,17 +33,7 @@ class GalleryController extends Controller
             abort(404, 'Gallery not found');
         }
 
-        $processedImages = [];
-        foreach ($gallery->images as $image) {
-            $dims = getimagesize(storage_path('app/public/' . $image->thumbnail_link));
-            $processedImages[] = [
-                'uuid' => $image->uuid,
-                'src' => url('/storage/' . $image->thumbnail_link),
-                'original' => url('https://lindsey-reid-photography.s3.amazonaws.com/' . $image->link),
-                'width' => $dims[0],
-                'height' => $dims[1],
-            ];
-        }
+        $processedImages = GalleryRepository::processGalleryImages($gallery);
 
         return response()->json([
             'gallery' => $gallery,

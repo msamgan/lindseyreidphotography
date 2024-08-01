@@ -18,7 +18,7 @@ export default function GalleryCard({ gallery }) {
     return (
         <div className="max-w-md p-2 mt-12 rounded-md shadow-md bg-gray-50 text-gray-900">
             <img
-                src={gallery.cover ? "/storage/" + gallery.cover : "/img/lr_white.png"}
+                src={gallery.cover ? gallery.cover_link : "/img/lr_white.png"}
                 alt=""
                 className="object-cover object-center w-full rounded-md h-72 bg-gray-500"
             />
