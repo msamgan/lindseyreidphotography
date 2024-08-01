@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
+use App\Repositories\GalleryRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
@@ -35,11 +36,11 @@ class GalleryController extends Controller
 
         $processedImages = [];
         foreach ($gallery->images as $image) {
-            $dims = getimagesize(storage_path('app/public/'.$image->thumbnail_link));
+            $dims = getimagesize(storage_path('app/public/' . $image->thumbnail_link));
             $processedImages[] = [
                 'uuid' => $image->uuid,
-                'src' => url('/storage/'.$image->thumbnail_link),
-                'original' => url('https://lindsey-reid-photography.s3.amazonaws.com/'.$image->link),
+                'src' => url('/storage/' . $image->thumbnail_link),
+                'original' => url('https://lindsey-reid-photography.s3.amazonaws.com/' . $image->link),
                 'width' => $dims[0],
                 'height' => $dims[1],
             ];
@@ -109,10 +110,15 @@ class GalleryController extends Controller
         ]);
     }
 
-    public function galleryPortfolio(): ?Model
+    public function galleryPortfolio(): array
     {
         $gallery = Gallery::query()->where('uuid', Gallery::PORTFOLIO_UUID)->with('images')->first();
 
-        dd($gallery);
+        $processedImages = GalleryRepository::processGalleryImages($gallery);
+
+        return [
+            'gallery' => $gallery,
+            'images' => $processedImages,
+        ];
     }
 }
