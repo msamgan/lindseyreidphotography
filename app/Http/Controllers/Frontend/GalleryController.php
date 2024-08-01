@@ -111,6 +111,8 @@ class GalleryController extends Controller
 
     public function galleryPortfolio(): ?Model
     {
-        return Gallery::query()->where('uuid', Gallery::PORTFOLIO_UUID)->with('images')->first();
+        $gallery = Gallery::query()->where('uuid', Gallery::PORTFOLIO_UUID)->with('images')->first();
+
+        dd($gallery);
     }
 }

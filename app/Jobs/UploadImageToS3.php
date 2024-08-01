@@ -38,12 +38,16 @@ class UploadImageToS3 implements ShouldQueue
 
         $image->storeAs($this->dirName, $this->fileName, 's3');
 
-        if (! is_dir(storage_path('app/'.$this->dirName.'/thumbnail'))) {
-            mkdir(storage_path('app/'.$this->dirName.'/thumbnail'));
+        if (! is_dir(storage_path('app/public/thumbnail'))) {
+            mkdir(storage_path('app/public/thumbnail'));
+        }
+
+        if (! is_dir(storage_path('app/public/thumbnail/'.$this->dirName))) {
+            mkdir(storage_path('app/public/thumbnail/'.$this->dirName));
         }
 
         $image = ImageManager::imagick()->read($imagePath);
-        $image->resize(600)->save(storage_path('app/'.$this->dirName.'/thumbnail/'.$this->fileName));
+        $image->resize(600)->save(storage_path('app/public/thumbnail/'.$this->dirName.'/'.$this->fileName));
 
         unlink($imagePath);
 

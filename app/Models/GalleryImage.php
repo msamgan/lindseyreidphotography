@@ -12,5 +12,5 @@ class GalleryImage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['gallery_id', 'uuid', 'link', 'thumbnail_link'];
+    protected $fillable = ['gallery_id', 'uuid', 'file_name'];
 }

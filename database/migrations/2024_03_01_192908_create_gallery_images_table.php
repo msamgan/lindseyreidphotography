@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('gallery_id')->constrained()->cascadeOnDelete();
             $table->string('uuid')->unique();
-            $table->string('link');
+            $table->string('file_name');
             $table->timestamps();
         });
     }

@@ -39,6 +39,8 @@ class GalleryRepository
         return $galleryData;
     }
 
+    public static function processGalleryImages($gallery, $image) {}
+
     public function deleteThumbnailDir($dirPath): void
     {
         if (file_exists($dirPath)) {

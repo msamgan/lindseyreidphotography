@@ -62,10 +62,8 @@ class GalleryController extends Controller
         $galleryUuid = $request->get('gallery');
         $imageName = Str::slug($this->galleryRepository->getImageNameWithExtension($image)).'-'.time();
         $fileName = $imageName.'.'.$image->getClientOriginalExtension();
-        $thumbnailFileName = $imageName.'_thumbnail'.'.'.$image->getClientOriginalExtension();
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
         $dirName = $gallery->uuid;
-        $thumbDir = $dirName.'/thumbnails';
 
         DB::beginTransaction();
 
@@ -73,8 +71,7 @@ class GalleryController extends Controller
             GalleryImage::create([
                 'gallery_id' => $gallery->id,
                 'uuid' => Str::uuid(),
-                'link' => $dirName.'/'.$fileName,
-                'thumbnail_link' => $thumbDir.'/'.$thumbnailFileName,
+                'file_name' => $fileName,
             ]);
 
             $image->storeAs($dirName, $fileName, 'local');
