@@ -9,8 +9,6 @@ use Illuminate\Support\Str;
 
 class GalleryRepository
 {
-    public const S3_LINK = 'https://lindsey-reid-photography.s3.amazonaws.com/';
-
     public static function processGalleryImages($gallery): array
     {
         $processedImages = [];
@@ -40,7 +38,7 @@ class GalleryRepository
 
     public static function getImageLink($galleryUUid, $fileName): string
     {
-        return url(self::S3_LINK . $galleryUUid . '/' . $fileName);
+        return url(config('app.aws_bucket_url') . $galleryUUid . '/' . $fileName);
     }
 
     public static function getGalleryCoverLink($gallery): Application|string|UrlGenerator
