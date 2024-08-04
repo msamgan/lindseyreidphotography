@@ -11,11 +11,11 @@ export default function Slider() {
             url: route("gallery.portfolio")
         })
             .then((response) => {
-                setSliderGallery(response.data)
+                setSliderGallery(response.data.gallery)
                 setGalleryImages(response.data.images)
             })
             .catch((error) => {
-                console.log(error)
+                // console.log(error)
             })
     }
 

@@ -11,19 +11,18 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Response;
 use Inertia\ResponseFactory;
-use Illuminate\Support\Collection;
 
 class GalleryController extends Controller
 {
     public function __construct(
         private readonly GalleryRepository $galleryRepository
-    )
-    {
+    ) {
         //
     }
 
@@ -37,7 +36,7 @@ class GalleryController extends Controller
         $galleryUuid = $request->get('gallery');
         $gallery = Gallery::query()->where('uuid', $galleryUuid)->firstOrFail();
 
-        if (!$gallery) {
+        if (! $gallery) {
             abort(404, 'Gallery not found');
         }
 

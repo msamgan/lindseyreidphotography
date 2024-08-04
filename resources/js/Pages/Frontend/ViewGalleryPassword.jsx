@@ -37,7 +37,7 @@ export default function ViewGalleryPassword({ gallery }) {
                 })
             })
             .catch((error) => {
-                console.log(error)
+                // console.log(error)
             })
     }
 

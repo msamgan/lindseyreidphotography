@@ -31,23 +31,7 @@ export default function AddImages({ auth, gallery }) {
                             gallery: gallery.uuid
                         }),
                         process: {
-                            headers: {},
-                            onload: (response) => {
-                                /*axios
-                                    .post(
-                                        route("admin.gallery.image.store", {
-                                            gallery_uuid: gall  ery.uuid
-                                        }),
-                                        {
-                                            image: JSON.parse(response).image,
-                                            thumbnail: JSON.parse(response).thumbnail
-                                        }
-                                    )
-                                    .then(() => {})*/
-                            },
-                            onerror: (response) => {
-                                console.log(response)
-                            }
+                            headers: {}
                         }
                     }}
                     name="file"

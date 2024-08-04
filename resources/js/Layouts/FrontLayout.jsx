@@ -7,7 +7,7 @@ const appName = import.meta.env.VITE_APP_NAME || "Lindsey Reid Photography"
 
 export default function FrontLayout({ auth, children, title }) {
     useEffect(() => {
-        console.log(route().current())
+        // console.log(route().current())
     }, [])
 
     return (
