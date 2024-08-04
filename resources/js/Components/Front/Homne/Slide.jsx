@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { Link } from "@inertiajs/react"
+import Loader from "@/Components/Loader.jsx"
 
 export default function Slider() {
     const [sliderGallery, setSliderGallery] = useState({})
     const [galleryImages, setGalleryImages] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const getPortfolioGallery = () => {
         axios({
@@ -13,6 +15,8 @@ export default function Slider() {
             .then((response) => {
                 setSliderGallery(response.data.gallery)
                 setGalleryImages(response.data.images)
+
+                setLoading(false)
             })
             .catch((error) => {
                 // console.log(error)
@@ -26,7 +30,7 @@ export default function Slider() {
     const SliderImage = ({ image, index }) => {
         return (
             <img
-                src={image.src}
+                src={image.original}
                 alt={"image" + index}
                 className={"object-cover object-center bg-gray-500"}
                 style={{
@@ -37,7 +41,7 @@ export default function Slider() {
     }
 
     return (
-        <div className="w-full inline-flex flex-nowrap overflow-hidden">
+        loading ? (<Loader />) : <div className="w-full inline-flex flex-nowrap overflow-hidden">
             <ul className="flex items-center justify-center md:justify-start [&_li]:mx-2 [&_img]:max-w-none animate-infinite-scroll">
                 {galleryImages.length > 0 &&
                     galleryImages.map((image, index) => {
