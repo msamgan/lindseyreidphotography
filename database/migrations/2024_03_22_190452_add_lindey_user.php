@@ -13,8 +13,8 @@ return new class extends Migration
     {
         User::create([
             'name' => 'Lindsey B Reid',
-            'email' => 'mail@lindseyreidphotography.com',
-            'password' => Hash::make('mmAEMUJiQ#6h5zvt&R'),
+            'email' => 'mail@lbr.com',
+            'password' => Hash::make('Pass@123'),
             'email_verified_at' => now(),
         ]);
     }

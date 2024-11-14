@@ -13,6 +13,12 @@ class GalleryRepository
     {
         $processedImages = [];
         foreach ($gallery->images as $image) {
+            $thumbnailPath = self::getImageThumbnailPath($gallery->uuid, $image->file_name);
+
+            if (! file_exists($thumbnailPath)) {
+                continue;
+            }
+
             $dims = getimagesize(self::getImageThumbnailPath($gallery->uuid, $image->file_name));
             $processedImages[] = [
                 'uuid' => $image->uuid,
