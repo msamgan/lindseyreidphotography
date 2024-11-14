@@ -13,6 +13,8 @@ export default function Slider() {
             url: route("gallery.portfolio")
         })
             .then((response) => {
+                console.log(response.data)
+
                 setSliderGallery(response.data.gallery)
                 setGalleryImages(response.data.images)
 
@@ -40,8 +42,10 @@ export default function Slider() {
         )
     }
 
-    return (
-        loading ? (<Loader />) : <div className="w-full inline-flex flex-nowrap overflow-hidden">
+    return loading ? (
+        <Loader />
+    ) : (
+        <div className="w-full inline-flex flex-nowrap overflow-hidden">
             <ul className="flex items-center justify-center md:justify-start [&_li]:mx-2 [&_img]:max-w-none animate-infinite-scroll">
                 {galleryImages.length > 0 &&
                     galleryImages.map((image, index) => {
