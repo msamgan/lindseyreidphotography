@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Throwable;
 
 class GalleryController extends Controller
 {
@@ -56,6 +57,9 @@ class GalleryController extends Controller
         return inertia('Backend/Gallery/AddImages')->with('gallery', $gallery);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function imageStore(Request $request): JsonResponse
     {
         $image = $request->file('file');
