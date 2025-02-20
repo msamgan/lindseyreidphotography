@@ -11,9 +11,10 @@ add('shared_files', []);
 add('shared_dirs', []);
 add('writable_dirs', []);
 
-host('146.190.32.125')
-    ->set('remote_user', 'lbrdev')
-    ->set('deploy_path', '~/htdocs/lbrdev.work');
+host('159.89.180.3')
+    ->set('remote_user', 'lbrkphoto')
+    ->set('deploy_path', '~/htdocs/lbrkphoto.com')
+    ->set('writable_mode', 'chmod');
 
 desc('Build the assets');
 task('deploy:build', function () {
